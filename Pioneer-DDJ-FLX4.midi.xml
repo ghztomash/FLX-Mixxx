@@ -36,9 +36,9 @@
                 </options>
             </control>
             <control>
-                <description>BROWSE - press - Move cursor between track list and tree view</description>
+                <description>BROWSE - press - Open or close selected library folder/item</description>
                 <group>[Library]</group>
-                <key>MoveFocusForward</key> <!-- missing function to open Folder -->
+                <key>GoToItem</key>
                 <status>0x96</status>
                 <midino>0x41</midino>
                 <options>
