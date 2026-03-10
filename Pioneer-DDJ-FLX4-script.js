@@ -537,6 +537,16 @@ PioneerDDJFLX4.loopToggle = function(value, group, control) {
     }
 };
 
+PioneerDDJFLX4.toggleBeatloop = function(_channel, _control, value, _status, group) {
+    if (value) {
+        const control = engine.getValue(group, "loop_enabled")
+            ? "reloop_toggle"
+            : "beatloop_activate";
+        engine.setValue(group, control, 1);
+        engine.setValue(group, control, 0);
+    }
+};
+
 //
 // CUE/LOOP CALL
 //
