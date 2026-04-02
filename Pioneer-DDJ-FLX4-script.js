@@ -355,6 +355,20 @@ PioneerDDJFLX4.browsePress = function(_channel, _control, value, _status, _group
     }
 };
 
+PioneerDDJFLX4.browseShiftPress = function(_channel, _control, value, _status, _group) {
+    if (value === 0) {
+        return;
+    }
+
+    const focusedWidget = engine.getValue("[Library]", "focused_widget");
+
+    if (focusedWidget === PioneerDDJFLX4.libraryFocusWidget.tracksTable) {
+        engine.setValue("[Library]", "focused_widget", PioneerDDJFLX4.libraryFocusWidget.sidebar);
+    } else if (focusedWidget === PioneerDDJFLX4.libraryFocusWidget.sidebar) {
+        script.triggerControl("[Library]", "MoveLeft");
+    }
+};
+
 //
 // Channel level lights
 //
