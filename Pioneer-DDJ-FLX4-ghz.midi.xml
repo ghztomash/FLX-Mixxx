@@ -7,9 +7,9 @@
         <manual>pioneer_ddj_FLX4</manual>
         <forums>https://mixxx.discourse.group/t/pioneer-ddj-flx4</forums>
     </info>
-    <controller id="DDJ-FLX4">
+    <controller id="DDJ-FLX4-ghz">
         <scriptfiles>
-            <file functionprefix="PioneerDDJFLX4" filename="Pioneer-DDJ-FLX4-script.js"/>
+            <file functionprefix="PioneerDDJFLX4GHz" filename="Pioneer-DDJ-FLX4-ghz-script.js"/>
         </scriptfiles>
         <controls>
             <!--
@@ -18,7 +18,7 @@
             <control>
                 <description>BROWSE - rotate - Maximize library and scroll tracks</description>
                 <group>[Library]</group>
-                <key>PioneerDDJFLX4.browseRotate</key>
+                <key>PioneerDDJFLX4GHz.browseRotate</key>
                 <status>0xB6</status>
                 <midino>0x40</midino>
                 <options>
@@ -28,7 +28,7 @@
             <control>
                 <description>BROWSE +SHIFT - Zoom waveform</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.waveformZoom</key>
+                <key>PioneerDDJFLX4GHz.waveformZoom</key>
                 <status>0xB6</status>
                 <midino>0x64</midino>
                 <options>
@@ -38,7 +38,7 @@
             <control>
                 <description>BROWSE - press - Open/close selected folder or enter playlist</description>
                 <group>[Library]</group>
-                <key>PioneerDDJFLX4.browsePress</key>
+                <key>PioneerDDJFLX4GHz.browsePress</key>
                 <status>0x96</status>
                 <midino>0x41</midino>
                 <options>
@@ -48,7 +48,7 @@
             <control>
               <description>BROWSE +SHIFT - press - Back to sidebar or toggle selected folder</description>
                 <group>[Library]</group>
-                <key>PioneerDDJFLX4.browseShiftPress</key>
+                <key>PioneerDDJFLX4GHz.browseShiftPress</key>
                 <status>0x96</status>
                 <midino>0x42</midino>
                 <options>
@@ -59,7 +59,7 @@
             <control>
                 <description>LOAD (DECK1) - press - Load a Track into Deck 1</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.loadSelectedTrack</key>
+                <key>PioneerDDJFLX4GHz.loadSelectedTrack</key>
                 <status>0x96</status>
                 <midino>0x46</midino>
                 <options>
@@ -70,7 +70,7 @@
             <control>
                 <description>LOAD (DECK2) - press - Load a Track into Deck 2</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.loadSelectedTrack</key>
+                <key>PioneerDDJFLX4GHz.loadSelectedTrack</key>
                 <status>0x96</status>
                 <midino>0x47</midino>
                 <options>
@@ -85,7 +85,7 @@
             <control>
                 <description>Shift (DECK1)</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.shiftPressed</key>
+                <key>PioneerDDJFLX4GHz.shiftPressed</key>
                 <status>0x90</status>
                 <midino>0x3F</midino>
                 <options>
@@ -95,7 +95,7 @@
             <control>
                 <description>Shift (DECK2)</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.shiftPressed</key>
+                <key>PioneerDDJFLX4GHz.shiftPressed</key>
                 <status>0x91</status>
                 <midino>0x3F</midino>
                 <options>
@@ -188,7 +188,7 @@
             <control>
                 <description>JOG DIAL PLATTER Vinyl mode On (DECK1) - rotate - Scratch</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB0</status>
                 <midino>0x22</midino>
                 <options>
@@ -198,7 +198,7 @@
             <control>
                 <description>JOG DIAL PLATTER Vinyl mode Off (DECK1) - rotate - Pitch bend</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB0</status>
                 <midino>0x23</midino>
                 <options>
@@ -208,7 +208,7 @@
             <control>
                 <description>JOG DIAL PLATTER +SHIFT (DECK1) - rotate - Search (Fast Pitch bend)</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogSearch</key>
+                <key>PioneerDDJFLX4GHz.jogSearch</key>
                 <status>0xB0</status>
                 <midino>0x29</midino>
                 <options>
@@ -220,7 +220,7 @@
                     bend
                 </description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogTouch</key>
+                <key>PioneerDDJFLX4GHz.jogTouch</key>
                 <status>0x90</status>
                 <midino>0x36</midino>
                 <options>
@@ -232,7 +232,7 @@
                     Pitch bend
                 </description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogTouch</key>
+                <key>PioneerDDJFLX4GHz.jogTouch</key>
                 <status>0x90</status>
                 <midino>0x67</midino>
                 <options>
@@ -242,7 +242,7 @@
             <control>
                 <description>JOG DIAL SIDE (DECK1) - rotate - Pitch bend</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB0</status>
                 <midino>0x21</midino>
                 <options>
@@ -253,7 +253,7 @@
             <control>
                 <description>JOG DIAL PLATTER Vinyl mode On (DECK2) - rotate - Scratch</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB1</status>
                 <midino>0x22</midino>
                 <options>
@@ -263,7 +263,7 @@
             <control>
                 <description>JOG DIAL PLATTER Vinyl mode Off (DECK2) - rotate - Pitch bend</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB1</status>
                 <midino>0x23</midino>
                 <options>
@@ -273,7 +273,7 @@
             <control>
                 <description>JOG DIAL PLATTER +SHIFT (DECK2) - rotate - Search (Fast Pitch bend)</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogSearch</key>
+                <key>PioneerDDJFLX4GHz.jogSearch</key>
                 <status>0xB1</status>
                 <midino>0x29</midino>
                 <options>
@@ -285,7 +285,7 @@
                     bend
                 </description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogTouch</key>
+                <key>PioneerDDJFLX4GHz.jogTouch</key>
                 <status>0x91</status>
                 <midino>0x36</midino>
                 <options>
@@ -297,7 +297,7 @@
                     Pitch bend
                 </description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogTouch</key>
+                <key>PioneerDDJFLX4GHz.jogTouch</key>
                 <status>0x91</status>
                 <midino>0x67</midino>
                 <options>
@@ -307,7 +307,7 @@
             <control>
                 <description>JOG DIAL SIDE (DECK2) - rotate - Pitch bend</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.jogTurn</key>
+                <key>PioneerDDJFLX4GHz.jogTurn</key>
                 <status>0xB1</status>
                 <midino>0x21</midino>
                 <options>
@@ -318,7 +318,7 @@
             <control>
                 <description>TEMPO (DECK1) - fader - Tempo control LSB</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.tempoSliderLSB</key>
+                <key>PioneerDDJFLX4GHz.tempoSliderLSB</key>
                 <status>0xB0</status>
                 <midino>0x20</midino>
                 <options>
@@ -328,7 +328,7 @@
             <control>
                 <description>TEMPO (DECK1) - fader - Tempo control MSB</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.tempoSliderMSB</key>
+                <key>PioneerDDJFLX4GHz.tempoSliderMSB</key>
                 <status>0xB0</status>
                 <midino>0x00</midino>
                 <options>
@@ -338,7 +338,7 @@
             <control>
                 <description>TEMPO (DECK2) - fader - Tempo control LSB</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.tempoSliderLSB</key>
+                <key>PioneerDDJFLX4GHz.tempoSliderLSB</key>
                 <status>0xB1</status>
                 <midino>0x20</midino>
                 <options>
@@ -348,7 +348,7 @@
             <control>
                 <description>TEMPO (DECK2) - fader - Tempo control MSB</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.tempoSliderMSB</key>
+                <key>PioneerDDJFLX4GHz.tempoSliderMSB</key>
                 <status>0xB1</status>
                 <midino>0x00</midino>
                 <options>
@@ -359,7 +359,7 @@
             <control>
                 <description>BEAT SYNC (DECK1) - press - Beat Sync to Master deck</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.syncPressed</key>
+                <key>PioneerDDJFLX4GHz.syncPressed</key>
                 <status>0x90</status>
                 <midino>0x58</midino>
                 <options>
@@ -369,7 +369,7 @@
             <control>
                 <description>BEAT SYNC LONG PRESS (DECK1) - press - Set as Master deck</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.syncLongPressed</key>
+                <key>PioneerDDJFLX4GHz.syncLongPressed</key>
                 <status>0x90</status>
                 <midino>0x5C</midino>
                 <options>
@@ -379,7 +379,7 @@
             <control>
                 <description>BEAT SYNC +SHIFT (DECK1) - press - change Tempo range</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.cycleTempoRange</key>
+                <key>PioneerDDJFLX4GHz.cycleTempoRange</key>
                 <status>0x90</status>
                 <midino>0x60</midino>
                 <options>
@@ -390,7 +390,7 @@
             <control>
                 <description>BEAT SYNC (DECK2) - press - Beat Sync to Master deck</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.syncPressed</key>
+                <key>PioneerDDJFLX4GHz.syncPressed</key>
                 <status>0x91</status>
                 <midino>0x58</midino>
                 <options>
@@ -400,7 +400,7 @@
             <control>
                 <description>BEAT SYNC LONG PRESS (DECK2) - press - Set as Master deck</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.syncLongPressed</key>
+                <key>PioneerDDJFLX4GHz.syncLongPressed</key>
                 <status>0x91</status>
                 <midino>0x5C</midino>
                 <options>
@@ -410,7 +410,7 @@
             <control>
                 <description>BEAT SYNC +SHIFT (DECK2) - press - change Tempo range</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.cycleTempoRange</key>
+                <key>PioneerDDJFLX4GHz.cycleTempoRange</key>
                 <status>0x91</status>
                 <midino>0x60</midino>
                 <options>
@@ -464,7 +464,7 @@
             <control>
                 <description>RELOOP/EXIT (DECK1) - press - Toggle beatloop using current beatloop size</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.toggleBeatloop</key>
+                <key>PioneerDDJFLX4GHz.toggleBeatloop</key>
                 <status>0x90</status>
                 <midino>0x4D</midino>
                 <options>
@@ -474,7 +474,7 @@
             <control>
                 <description>RELOOP/EXIT (DECK2) - press - Toggle beatloop using current beatloop size</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.toggleBeatloop</key>
+                <key>PioneerDDJFLX4GHz.toggleBeatloop</key>
                 <status>0x91</status>
                 <midino>0x4D</midino>
                 <options>
@@ -506,7 +506,7 @@
             <control>
                 <description>SHIFT + LOOP IN (DECK1) - Loop in adjust (using jog wheel)</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.toggleLoopAdjustIn</key>
+                <key>PioneerDDJFLX4GHz.toggleLoopAdjustIn</key>
                 <status>0x90</status>
                 <midino>0x4C</midino>
                 <options>
@@ -516,7 +516,7 @@
             <control>
                 <description>SHIFT + LOOP IN (DECK2) - Loop in adjust (using jog wheel)</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.toggleLoopAdjustIn</key>
+                <key>PioneerDDJFLX4GHz.toggleLoopAdjustIn</key>
                 <status>0x91</status>
                 <midino>0x4C</midino>
                 <options>
@@ -527,7 +527,7 @@
             <control>
                 <description>SHIFT + LOOP OUT (DECK1) - Loop out adjust (using jog wheel)</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.toggleLoopAdjustOut</key>
+                <key>PioneerDDJFLX4GHz.toggleLoopAdjustOut</key>
                 <status>0x90</status>
                 <midino>0x4E</midino>
                 <options>
@@ -537,7 +537,7 @@
             <control>
                 <description>SHIFT + LOOP OUT (DECK2) - Loop out adjust (using jog wheel)</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.toggleLoopAdjustOut</key>
+                <key>PioneerDDJFLX4GHz.toggleLoopAdjustOut</key>
                 <status>0x91</status>
                 <midino>0x4E</midino>
                 <options>
@@ -548,7 +548,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT (DECK1) - press - half active loop</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.cueLoopCallLeft</key>
+                <key>PioneerDDJFLX4GHz.cueLoopCallLeft</key>
                 <status>0x90</status>
                 <midino>0x51</midino>
                 <options>
@@ -558,7 +558,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT + SHIFT (DECK1) - press - quick jump back</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.quickJumpBack</key>
+                <key>PioneerDDJFLX4GHz.quickJumpBack</key>
                 <status>0x90</status>
                 <midino>0x3E</midino>
                 <options>
@@ -569,7 +569,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT (DECK2) - press - half active loop</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.cueLoopCallLeft</key>
+                <key>PioneerDDJFLX4GHz.cueLoopCallLeft</key>
                 <status>0x91</status>
                 <midino>0x51</midino>
                 <options>
@@ -579,7 +579,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT + SHIFT (DECK2) - press - quick jump back</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.quickJumpBack</key>
+                <key>PioneerDDJFLX4GHz.quickJumpBack</key>
                 <status>0x91</status>
                 <midino>0x3E</midino>
                 <options>
@@ -590,7 +590,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT (DECK1) - press - double active loop</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.cueLoopCallRight</key>
+                <key>PioneerDDJFLX4GHz.cueLoopCallRight</key>
                 <status>0x90</status>
                 <midino>0x53</midino>
                 <options>
@@ -600,7 +600,7 @@
             <control>
                 <description>CUE/LOOP CALL RIGHT + SHIFT (DECK1) - press - quick jump forwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.quickJumpForward</key>
+                <key>PioneerDDJFLX4GHz.quickJumpForward</key>
                 <status>0x90</status>
                 <midino>0x3D</midino>
                 <options>
@@ -611,7 +611,7 @@
             <control>
                 <description>CUE/LOOP CALL LEFT (DECK2) - press - double active loop</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.cueLoopCallRight</key>
+                <key>PioneerDDJFLX4GHz.cueLoopCallRight</key>
                 <status>0x91</status>
                 <midino>0x53</midino>
                 <options>
@@ -621,7 +621,7 @@
             <control>
                 <description>CUE/LOOP CALL RIGHT + SHIFT (DECK2) - press - quick jump forwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.quickJumpForward</key>
+                <key>PioneerDDJFLX4GHz.quickJumpForward</key>
                 <status>0x91</status>
                 <midino>0x3D</midino>
                 <options>
@@ -696,7 +696,7 @@
             <control>
                 <description>Shift + Left CUE - Toggle quantize on/off (Deck1)</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.toggleQuantize</key>
+                <key>PioneerDDJFLX4GHz.toggleQuantize</key>
                 <status>0x90</status>
                 <midino>0x68</midino>
                 <options>
@@ -706,7 +706,7 @@
             <control>
                 <description>Shift + Right CUE - Toggle quantize on/off (Deck2)</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.toggleQuantize</key>
+                <key>PioneerDDJFLX4GHz.toggleQuantize</key>
                 <status>0x91</status>
                 <midino>0x68</midino>
                 <options>
@@ -968,7 +968,7 @@
             <control>
               <description>BEAT FX SELECT - press once - select next effect</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxSelectPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxSelectPressed</key>
                 <status>0x94</status>
                 <midino>0x63</midino>
                 <options>
@@ -978,7 +978,7 @@
             <control>
               <description>BEAT FX SELECT + shift - press once - select previous effect</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxSelectShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxSelectShiftPressed</key>
                 <status>0x94</status>
                 <midino>0x64</midino>
                 <options>
@@ -989,7 +989,7 @@
             <control>
                 <description>BEAT LEFT - press - select previous effect unit</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxLeftPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxLeftPressed</key>
                 <status>0x94</status>
                 <midino>0x4A</midino>
                 <options>
@@ -1000,7 +1000,7 @@
             <control>
                 <description>BEAT RIGHT - press - select next effect unit</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxRightPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxRightPressed</key>
                 <status>0x94</status>
                 <midino>0x4B</midino>
                 <options>
@@ -1012,7 +1012,7 @@
             <control>
                 <description>BEAT FX CH SELECT CH1 - slide - Select FX on DECK 1</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxChannel1</key>
+                <key>PioneerDDJFLX4GHz.beatFxChannel1</key>
                 <status>0x94</status>
                 <midino>0x10</midino>
                 <options>
@@ -1022,7 +1022,7 @@
             <control>
                 <description>BEAT FX CH SELECT CH2 - slide - Select FX on DECK 2</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxChannel2</key>
+                <key>PioneerDDJFLX4GHz.beatFxChannel2</key>
                 <status>0x95</status>
                 <midino>0x11</midino>
                 <options>
@@ -1035,7 +1035,7 @@
                     selected slot
                 </description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxLevelDepthRotate</key>
+                <key>PioneerDDJFLX4GHz.beatFxLevelDepthRotate</key>
                 <status>0xB4</status>
                 <midino>0x02</midino>
                 <options>
@@ -1046,7 +1046,7 @@
             <control>
                 <description>BEAT FX ON/OFF - press - Toggle FX in the selected Slot (when on CHAN1/1+2)</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxOnOffPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxOnOffPressed</key>
                 <status>0x94</status>
                 <midino>0x47</midino>
                 <options>
@@ -1056,7 +1056,7 @@
             <control>
                 <description>BEAT FX ON/OFF - press - Toggle FX in the selected Slot (when on CHAN2)</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxOnOffPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxOnOffPressed</key>
                 <status>0x95</status>
                 <midino>0x47</midino>
                 <options>
@@ -1066,7 +1066,7 @@
             <control>
                 <description>BEAT FX ON/OFF +SHIFT - press - Disable all enabled Beat FX Slots (when on CHAN1/1+2)</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxOnOffShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxOnOffShiftPressed</key>
                 <status>0x94</status>
                 <midino>0x43</midino>
                 <options>
@@ -1076,7 +1076,7 @@
             <control>
                 <description>BEAT FX ON/OFF +SHIFT - press - Disable all enabled Beat FX Slots (when on CHAN12)</description>
                 <group>[EffectRack1_EffectUnit1]</group>
-                <key>PioneerDDJFLX4.beatFxOnOffShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.beatFxOnOffShiftPressed</key>
                 <status>0x95</status>
                 <midino>0x43</midino>
                 <options>
@@ -1090,7 +1090,7 @@
             <control>
                 <description>HOT CUE MODE (DECK1) - press - set hotcue mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x1B</midino>
                 <options>
@@ -1100,7 +1100,7 @@
             <control>
                 <description>HOT CUE MODE (DECK2) - press - set hotcue mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x1B</midino>
                 <options>
@@ -1110,7 +1110,7 @@
             <control>
                 <description>KEYBOARD MODE (DECK1) - press - set keyboard mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x69</midino>
                 <options>
@@ -1120,7 +1120,7 @@
             <control>
                 <description>KEYBOARD MODE (DECK2) - press - set keyboard mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x69</midino>
                 <options>
@@ -1130,7 +1130,7 @@
             <control>
                 <description>PAD FX1 MODE (DECK1) - press - set pad fx1 mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x1E</midino>
                 <options>
@@ -1140,7 +1140,7 @@
             <control>
                 <description>PAD FX1 MODE (DECK2) - press - set pad fx1 mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x1E</midino>
                 <options>
@@ -1150,7 +1150,7 @@
             <control>
                 <description>PAD FX2 MODE (DECK1) - press - set pad fx2 mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x6B</midino>
                 <options>
@@ -1160,7 +1160,7 @@
             <control>
                 <description>PAD FX2 MODE (DECK2) - press - set pad fx2 mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x6B</midino>
                 <options>
@@ -1170,7 +1170,7 @@
             <control>
                 <description>BEAT JUMP MODE (DECK1) - press - set beat jump mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x20</midino>
                 <options>
@@ -1180,7 +1180,7 @@
             <control>
                 <description>BEAT JUMP MODE (DECK2) - press - set beat jump mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x20</midino>
                 <options>
@@ -1190,7 +1190,7 @@
             <control>
                 <description>BEAT LOOP MODE (DECK1) - press - set beat loop mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x6D</midino>
                 <options>
@@ -1200,7 +1200,7 @@
             <control>
                 <description>BEAT LOOP MODE (DECK2) - press - set beat loop mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x6D</midino>
                 <options>
@@ -1210,7 +1210,7 @@
             <control>
                 <description>SAMPLER MODE (DECK1) - press - set sampler mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x22</midino>
                 <options>
@@ -1220,7 +1220,7 @@
             <control>
                 <description>SAMPLER MODE (DECK2) - press - set sampler mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x22</midino>
                 <options>
@@ -1230,7 +1230,7 @@
             <control>
                 <description>KEY SHIFT MODE (DECK1) - press - set key shift mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x90</status>
                 <midino>0x6F</midino>
                 <options>
@@ -1240,7 +1240,7 @@
             <control>
                 <description>KEY SHIFT MODE (DECK2) - press - set key shift mode</description>
                 <group>[PadMode]</group>
-                <key>PioneerDDJFLX4.padModeKeyPressed</key>
+                <key>PioneerDDJFLX4GHz.padModeKeyPressed</key>
                 <status>0x91</status>
                 <midino>0x6F</midino>
                 <options>
@@ -1576,7 +1576,7 @@
             <control>
                 <description>PAD 1 (DECK1) KEYBOARD MODE - press - Toggle Stem 1</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x97</status>
                 <midino>0x40</midino>
                 <options>
@@ -1586,7 +1586,7 @@
             <control>
                 <description>PAD 1 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 1 active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x40</midino>
                 <options>
@@ -1596,7 +1596,7 @@
             <control>
                 <description>PAD 1 (DECK2) KEYBOARD MODE - press - Toggle Stem 1</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x99</status>
                 <midino>0x40</midino>
                 <options>
@@ -1606,7 +1606,7 @@
             <control>
                 <description>PAD 1 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 1 active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x40</midino>
                 <options>
@@ -1616,7 +1616,7 @@
             <control>
                 <description>PAD 2 (DECK1) KEYBOARD MODE - press - Toggle Stem 2</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x97</status>
                 <midino>0x41</midino>
                 <options>
@@ -1626,7 +1626,7 @@
             <control>
                 <description>PAD 2 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 2 active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x41</midino>
                 <options>
@@ -1636,7 +1636,7 @@
             <control>
                 <description>PAD 2 (DECK2) KEYBOARD MODE - press - Toggle Stem 2</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x99</status>
                 <midino>0x41</midino>
                 <options>
@@ -1646,7 +1646,7 @@
             <control>
                 <description>PAD 2 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 2 active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x41</midino>
                 <options>
@@ -1656,7 +1656,7 @@
             <control>
                 <description>PAD 3 (DECK1) KEYBOARD MODE - press - Toggle Stem 3</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x97</status>
                 <midino>0x42</midino>
                 <options>
@@ -1666,7 +1666,7 @@
             <control>
                 <description>PAD 3 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 3 active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x42</midino>
                 <options>
@@ -1676,7 +1676,7 @@
             <control>
                 <description>PAD 3 (DECK2) KEYBOARD MODE - press - Toggle Stem 3</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x99</status>
                 <midino>0x42</midino>
                 <options>
@@ -1686,7 +1686,7 @@
             <control>
                 <description>PAD 3 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 3 active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x42</midino>
                 <options>
@@ -1696,7 +1696,7 @@
             <control>
                 <description>PAD 4 (DECK1) KEYBOARD MODE - press - Toggle Stem 4</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x97</status>
                 <midino>0x43</midino>
                 <options>
@@ -1706,7 +1706,7 @@
             <control>
                 <description>PAD 4 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 4 active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x43</midino>
                 <options>
@@ -1716,7 +1716,7 @@
             <control>
                 <description>PAD 4 (DECK2) KEYBOARD MODE - press - Toggle Stem 4</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadPressed</key>
                 <status>0x99</status>
                 <midino>0x43</midino>
                 <options>
@@ -1726,7 +1726,7 @@
             <control>
                 <description>PAD 4 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 4 active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemMutePadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemMutePadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x43</midino>
                 <options>
@@ -1736,7 +1736,7 @@
             <control>
                 <description>PAD 5 (DECK1) KEYBOARD MODE - press - Toggle Stem 1 FX</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x97</status>
                 <midino>0x44</midino>
                 <options>
@@ -1746,7 +1746,7 @@
             <control>
                 <description>PAD 5 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 1 FX active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x44</midino>
                 <options>
@@ -1756,7 +1756,7 @@
             <control>
                 <description>PAD 5 (DECK2) KEYBOARD MODE - press - Toggle Stem 1 FX</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x99</status>
                 <midino>0x44</midino>
                 <options>
@@ -1766,7 +1766,7 @@
             <control>
                 <description>PAD 5 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 1 FX active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x44</midino>
                 <options>
@@ -1776,7 +1776,7 @@
             <control>
                 <description>PAD 6 (DECK1) KEYBOARD MODE - press - Toggle Stem 2 FX</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x97</status>
                 <midino>0x45</midino>
                 <options>
@@ -1786,7 +1786,7 @@
             <control>
                 <description>PAD 6 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 2 FX active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x45</midino>
                 <options>
@@ -1796,7 +1796,7 @@
             <control>
                 <description>PAD 6 (DECK2) KEYBOARD MODE - press - Toggle Stem 2 FX</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x99</status>
                 <midino>0x45</midino>
                 <options>
@@ -1806,7 +1806,7 @@
             <control>
                 <description>PAD 6 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 2 FX active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x45</midino>
                 <options>
@@ -1816,7 +1816,7 @@
             <control>
                 <description>PAD 7 (DECK1) KEYBOARD MODE - press - Toggle Stem 3 FX</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x97</status>
                 <midino>0x46</midino>
                 <options>
@@ -1826,7 +1826,7 @@
             <control>
                 <description>PAD 7 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 3 FX active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x46</midino>
                 <options>
@@ -1836,7 +1836,7 @@
             <control>
                 <description>PAD 7 (DECK2) KEYBOARD MODE - press - Toggle Stem 3 FX</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x99</status>
                 <midino>0x46</midino>
                 <options>
@@ -1846,7 +1846,7 @@
             <control>
                 <description>PAD 7 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 3 FX active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x46</midino>
                 <options>
@@ -1856,7 +1856,7 @@
             <control>
                 <description>PAD 8 (DECK1) KEYBOARD MODE - press - Toggle Stem 4 FX</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x97</status>
                 <midino>0x47</midino>
                 <options>
@@ -1866,7 +1866,7 @@
             <control>
                 <description>PAD 8 +SHIFT (DECK1) KEYBOARD MODE - press - Only Stem 4 FX active</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x47</midino>
                 <options>
@@ -1876,7 +1876,7 @@
             <control>
                 <description>PAD 8 (DECK2) KEYBOARD MODE - press - Toggle Stem 4 FX</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadPressed</key>
                 <status>0x99</status>
                 <midino>0x47</midino>
                 <options>
@@ -1886,7 +1886,7 @@
             <control>
                 <description>PAD 8 +SHIFT (DECK2) KEYBOARD MODE - press - Only Stem 4 FX active</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.stemFxPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.stemFxPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x47</midino>
                 <options>
@@ -2062,7 +2062,7 @@
             <control>
                 <description>PAD 1 (DECK1) BEAT JUMP MODE - press - Jump 1 Beat backwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x20</midino>
                 <options>
@@ -2072,7 +2072,7 @@
             <control>
                 <description>PAD 1 (DECK2) BEAT JUMP MODE - press - Jump 1 Beat backwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x20</midino>
                 <options>
@@ -2082,7 +2082,7 @@
             <control>
                 <description>PAD 2 (DECK1) BEAT JUMP MODE - press - Jump 1 Beat forwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x21</midino>
                 <options>
@@ -2092,7 +2092,7 @@
             <control>
                 <description>PAD 2 (DECK2) BEAT JUMP MODE - press - Jump 1 Beat forwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x21</midino>
                 <options>
@@ -2102,7 +2102,7 @@
             <control>
                 <description>PAD 3 (DECK1) BEAT JUMP MODE - press - Jump 2 Beats backwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x22</midino>
                 <options>
@@ -2112,7 +2112,7 @@
             <control>
                 <description>PAD 3 (DECK2) BEAT JUMP MODE - press - Jump 2 Beats backwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x22</midino>
                 <options>
@@ -2122,7 +2122,7 @@
             <control>
                 <description>PAD 4 (DECK1) BEAT JUMP MODE - press - Jump 2 Beats forwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x23</midino>
                 <options>
@@ -2132,7 +2132,7 @@
             <control>
                 <description>PAD 4 (DECK2) BEAT JUMP MODE - press - Jump 2 Beats forwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x23</midino>
                 <options>
@@ -2142,7 +2142,7 @@
             <control>
                 <description>PAD 5 (DECK1) BEAT JUMP MODE - press - Jump 4 Beats backwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x24</midino>
                 <options>
@@ -2152,7 +2152,7 @@
             <control>
                 <description>PAD 5 (DECK2) BEAT JUMP MODE - press - Jump 4 Beats backwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x24</midino>
                 <options>
@@ -2162,7 +2162,7 @@
             <control>
                 <description>PAD 6 (DECK1) BEAT JUMP MODE - press - Jump 4 Beats forwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x25</midino>
                 <options>
@@ -2172,7 +2172,7 @@
             <control>
                 <description>PAD 6 (DECK2) BEAT JUMP MODE - press - Jump 4 Beats forwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x25</midino>
                 <options>
@@ -2182,7 +2182,7 @@
             <control>
                 <description>PAD 7 (DECK1) BEAT JUMP MODE - press - Jump 8 Beats backwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x26</midino>
                 <options>
@@ -2192,7 +2192,7 @@
             <control>
                 <description>PAD 7 (DECK2) BEAT JUMP MODE - press - Jump 8 Beats backwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x26</midino>
                 <options>
@@ -2202,7 +2202,7 @@
             <control>
                 <description>PAD 8 (DECK1) BEAT JUMP MODE - press - Jump 8 Beats forwards</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x97</status>
                 <midino>0x27</midino>
                 <options>
@@ -2212,7 +2212,7 @@
             <control>
                 <description>PAD 8 (DECK2) BEAT JUMP MODE - press - Jump 8 Beats forwards</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.beatjumpPadPressed</key>
+                <key>PioneerDDJFLX4GHz.beatjumpPadPressed</key>
                 <status>0x99</status>
                 <midino>0x27</midino>
                 <options>
@@ -2223,7 +2223,7 @@
             <control>
                 <description>PAD 7 (DECK1) +SHift BEAT JUMP MODE - press - decrease Beatjump by a factor of 16</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.decreaseBeatjumpSizes</key>
+                <key>PioneerDDJFLX4GHz.decreaseBeatjumpSizes</key>
                 <status>0x98</status>
                 <midino>0x26</midino>
                 <options>
@@ -2233,7 +2233,7 @@
             <control>
                 <description>PAD 7 (DECK2) +Shift BEAT JUMP MODE - press - decrease Beatjump by a factor of 16</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.decreaseBeatjumpSizes</key>
+                <key>PioneerDDJFLX4GHz.decreaseBeatjumpSizes</key>
                 <status>0x9A</status>
                 <midino>0x26</midino>
                 <options>
@@ -2243,7 +2243,7 @@
             <control>
                 <description>PAD 8 (DECK1) +SHift BEAT JUMP MODE - press - increase Beatjump by a factor of 16</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.increaseBeatjumpSizes</key>
+                <key>PioneerDDJFLX4GHz.increaseBeatjumpSizes</key>
                 <status>0x98</status>
                 <midino>0x27</midino>
                 <options>
@@ -2253,7 +2253,7 @@
             <control>
                 <description>PAD 8 (DECK2) +Shift BEAT JUMP MODE - press - increase Beatjump by a factor of 16</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.increaseBeatjumpSizes</key>
+                <key>PioneerDDJFLX4GHz.increaseBeatjumpSizes</key>
                 <status>0x9A</status>
                 <midino>0x27</midino>
                 <options>
@@ -2266,7 +2266,7 @@
             <control>
                 <description>PAD 1 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler1]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x30</midino>
                 <options>
@@ -2276,7 +2276,7 @@
             <control>
                 <description>PAD 1 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler1]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x30</midino>
                 <options>
@@ -2286,7 +2286,7 @@
             <control>
                 <description>PAD 2 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler2]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x31</midino>
                 <options>
@@ -2296,7 +2296,7 @@
             <control>
                 <description>PAD 2 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler2]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x31</midino>
                 <options>
@@ -2306,7 +2306,7 @@
             <control>
                 <description>PAD 3 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler3]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x32</midino>
                 <options>
@@ -2316,7 +2316,7 @@
             <control>
                 <description>PAD 3 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler3]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x32</midino>
                 <options>
@@ -2326,7 +2326,7 @@
             <control>
                 <description>PAD 4 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler4]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x33</midino>
                 <options>
@@ -2336,7 +2336,7 @@
             <control>
                 <description>PAD 4 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler4]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x33</midino>
                 <options>
@@ -2346,7 +2346,7 @@
             <control>
                 <description>PAD 5 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler9]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x34</midino>
                 <options>
@@ -2356,7 +2356,7 @@
             <control>
                 <description>PAD 5 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler9]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x34</midino>
                 <options>
@@ -2366,7 +2366,7 @@
             <control>
                 <description>PAD 6 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler10]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x35</midino>
                 <options>
@@ -2376,7 +2376,7 @@
             <control>
                 <description>PAD 6 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler10]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x35</midino>
                 <options>
@@ -2386,7 +2386,7 @@
             <control>
                 <description>PAD 7 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler11]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x36</midino>
                 <options>
@@ -2396,7 +2396,7 @@
             <control>
                 <description>PAD 7 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler11]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x36</midino>
                 <options>
@@ -2406,7 +2406,7 @@
             <control>
                 <description>PAD 8 (LEFT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler12]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x97</status>
                 <midino>0x37</midino>
                 <options>
@@ -2416,7 +2416,7 @@
             <control>
                 <description>PAD 8 (LEFT)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler12]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x37</midino>
                 <options>
@@ -2428,7 +2428,7 @@
             <control>
                 <description>PAD 1 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler5]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x30</midino>
                 <options>
@@ -2438,7 +2438,7 @@
             <control>
                 <description>PAD 1 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler5]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x30</midino>
                 <options>
@@ -2448,7 +2448,7 @@
             <control>
                 <description>PAD 2 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler6]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x31</midino>
                 <options>
@@ -2458,7 +2458,7 @@
             <control>
                 <description>PAD 2 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler6]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x31</midino>
                 <options>
@@ -2468,7 +2468,7 @@
             <control>
                 <description>PAD 3 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler7]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x32</midino>
                 <options>
@@ -2478,7 +2478,7 @@
             <control>
                 <description>PAD 3 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler7]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x32</midino>
                 <options>
@@ -2488,7 +2488,7 @@
             <control>
                 <description>PAD 4 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler8]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x33</midino>
                 <options>
@@ -2498,7 +2498,7 @@
             <control>
                 <description>PAD 4 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler8]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x33</midino>
                 <options>
@@ -2508,7 +2508,7 @@
             <control>
                 <description>PAD 5 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler13]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x34</midino>
                 <options>
@@ -2518,7 +2518,7 @@
             <control>
                 <description>PAD 5 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler13]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x34</midino>
                 <options>
@@ -2528,7 +2528,7 @@
             <control>
                 <description>PAD 6 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler14]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x35</midino>
                 <options>
@@ -2538,7 +2538,7 @@
             <control>
                 <description>PAD 6 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler14]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x35</midino>
                 <options>
@@ -2548,7 +2548,7 @@
             <control>
                 <description>PAD 7 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler15]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x36</midino>
                 <options>
@@ -2558,7 +2558,7 @@
             <control>
                 <description>PAD 7 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler15]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x36</midino>
                 <options>
@@ -2568,7 +2568,7 @@
             <control>
                 <description>PAD 8 (RIGHT) SAMPLE MODE - press - Play Sample or Load Track</description>
                 <group>[Sampler16]</group>
-                <key>PioneerDDJFLX4.samplerPadPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadPressed</key>
                 <status>0x99</status>
                 <midino>0x37</midino>
                 <options>
@@ -2578,7 +2578,7 @@
             <control>
                 <description>PAD 8 (Right)+SHIFT SAMPLE MODE - press - Stop Playback or Eject Track</description>
                 <group>[Sampler16]</group>
-                <key>PioneerDDJFLX4.samplerPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.samplerPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x37</midino>
                 <options>
@@ -2591,7 +2591,7 @@
             <control>
                 <description>PAD 1 (DECK1) KEY SHIFT MODE - press - No pitch modification</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x70</midino>
                 <options>
@@ -2601,7 +2601,7 @@
             <control>
                 <description>PAD 1 +SHIFT (DECK1) KEY SHIFT MODE - press - Increase the pitch by 1 semitone</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x70</midino>
                 <options>
@@ -2611,7 +2611,7 @@
             <control>
                 <description>PAD 1 (DECK2) KEY SHIFT MODE - press - No pitch modification</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x70</midino>
                 <options>
@@ -2621,7 +2621,7 @@
             <control>
                 <description>PAD 1 +SHIFT (DECK2) KEY SHIFT MODE - press - Increase the pitch by 1 semitone</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x70</midino>
                 <options>
@@ -2631,7 +2631,7 @@
             <control>
                 <description>PAD 2 (DECK1) KEY SHIFT MODE - press - Set pitch to one semitone up</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x71</midino>
                 <options>
@@ -2641,7 +2641,7 @@
             <control>
                 <description>PAD 2 +SHIFT (DECK1) KEY SHIFT MODE - press - Increase the pitch by 2 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x71</midino>
                 <options>
@@ -2651,7 +2651,7 @@
             <control>
                 <description>PAD 2 (DECK2) KEY SHIFT MODE - press - Set pitch to one semitone up</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x71</midino>
                 <options>
@@ -2661,7 +2661,7 @@
             <control>
                 <description>PAD 2 +SHIFT (DECK2) KEY SHIFT MODE - press - Increase the pitch by 2 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x71</midino>
                 <options>
@@ -2671,7 +2671,7 @@
             <control>
                 <description>PAD 3 (DECK1) KEY SHIFT MODE - press - Set the pitch to 2 semitones up</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x72</midino>
                 <options>
@@ -2681,7 +2681,7 @@
             <control>
                 <description>PAD 3 +SHIFT (DECK1) KEY SHIFT MODE - press - Increase the pitch by 3 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x72</midino>
                 <options>
@@ -2691,7 +2691,7 @@
             <control>
                 <description>PAD 3 (DECK2) KEY SHIFT MODE - press - Set the pitch to 2 semitones up</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x72</midino>
                 <options>
@@ -2701,7 +2701,7 @@
             <control>
                 <description>PAD 3 +SHIFT (DECK2) KEY SHIFT MODE - press - Increase the pitch by 3 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x72</midino>
                 <options>
@@ -2711,7 +2711,7 @@
             <control>
                 <description>PAD 4 (DECK1) KEY SHIFT MODE - press - Set the pitch to 3 semitones up</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x73</midino>
                 <options>
@@ -2721,7 +2721,7 @@
             <control>
                 <description>PAD 4 +SHIFT (DECK1) KEY SHIFT MODE - press - Increase the pitch by 4 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x73</midino>
                 <options>
@@ -2731,7 +2731,7 @@
             <control>
                 <description>PAD 4 (DECK2) KEY SHIFT MODE - press - Set the pitch to 3 semitones up</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x73</midino>
                 <options>
@@ -2741,7 +2741,7 @@
             <control>
                 <description>PAD 4 +SHIFT (DECK2) KEY SHIFT MODE - press - Increase the pitch by 4 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x73</midino>
                 <options>
@@ -2751,7 +2751,7 @@
             <control>
                 <description>PAD 5 (DECK1) KEY SHIFT MODE - press - Set the pitch to 3 semitones down</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x74</midino>
                 <options>
@@ -2761,7 +2761,7 @@
             <control>
                 <description>PAD 5 +SHIFT (DECK1) KEY SHIFT MODE - press - Decrease the pitch by 1 semitons</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x74</midino>
                 <options>
@@ -2771,7 +2771,7 @@
             <control>
                 <description>PAD 5 (DECK2) KEY SHIFT MODE - press - Set the pitch to 3 semitones down</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x74</midino>
                 <options>
@@ -2781,7 +2781,7 @@
             <control>
                 <description>PAD 5 +SHIFT (DECK2) KEY SHIFT MODE - press - Decrease the pitch by 1 semitone</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x74</midino>
                 <options>
@@ -2791,7 +2791,7 @@
             <control>
                 <description>PAD 6 (DECK1) KEY SHIFT MODE - press - Set the pitch to 2 semitones down</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x75</midino>
                 <options>
@@ -2801,7 +2801,7 @@
             <control>
                 <description>PAD 6 +SHIFT (DECK1) KEY SHIFT MODE - press - Decrease the pitch by 2 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x75</midino>
                 <options>
@@ -2811,7 +2811,7 @@
             <control>
                 <description>PAD 6 (DECK2) KEY SHIFT MODE - press - Set the pitch to 2 semitones down</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x75</midino>
                 <options>
@@ -2821,7 +2821,7 @@
             <control>
                 <description>PAD 6 +SHIFT (DECK2) KEY SHIFT MODE - press - Decrease the pitch by 2 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x75</midino>
                 <options>
@@ -2831,7 +2831,7 @@
             <control>
                 <description>PAD 7 (DECK1) KEY SHIFT MODE - press - Set the pitch to 1 semitones down</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x76</midino>
                 <options>
@@ -2841,7 +2841,7 @@
             <control>
                 <description>PAD 7 +SHIFT (DECK1) KEY SHIFT MODE - press - Decrease the pitch by 3 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x76</midino>
                 <options>
@@ -2851,7 +2851,7 @@
             <control>
                 <description>PAD 7 (DECK2) KEY SHIFT MODE - press - Set the pitch to 1 semitones down</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x76</midino>
                 <options>
@@ -2861,7 +2861,7 @@
             <control>
                 <description>PAD 7 +SHIFT (DECK2) KEY SHIFT MODE - press - Decrease the pitch by 3 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x76</midino>
                 <options>
@@ -2871,7 +2871,7 @@
             <control>
                 <description>PAD 8 (DECK1) KEY SHIFT MODE - press - No pitch modification</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x97</status>
                 <midino>0x77</midino>
                 <options>
@@ -2881,7 +2881,7 @@
             <control>
                 <description>PAD 8 +SHIFT (DECK1) KEY SHIFT MODE - press - Decrease the pitch by 4 semitones</description>
                 <group>[Channel1]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x98</status>
                 <midino>0x77</midino>
                 <options>
@@ -2891,7 +2891,7 @@
             <control>
                 <description>PAD 8 (DECK2) KEY SHIFT MODE - press - No pitch modification</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadPressed</key>
                 <status>0x99</status>
                 <midino>0x77</midino>
                 <options>
@@ -2901,7 +2901,7 @@
             <control>
                 <description>PAD 8 +SHIFT (DECK2) KEY SHIFT MODE - press - Decrease the pitch by 4 semitones</description>
                 <group>[Channel2]</group>
-                <key>PioneerDDJFLX4.pitchPadShiftPressed</key>
+                <key>PioneerDDJFLX4GHz.pitchPadShiftPressed</key>
                 <status>0x9A</status>
                 <midino>0x77</midino>
                 <options>
