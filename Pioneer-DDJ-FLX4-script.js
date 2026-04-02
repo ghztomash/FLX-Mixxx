@@ -217,6 +217,19 @@ PioneerDDJFLX4.stemMutePadsFirstControl = 0x40;
 // Stems (KEYBOARD) pad 5 control (pad control = [this value] + [pad  number] - 1)
 PioneerDDJFLX4.stemFxPadsFirstControl = 0x44;
 
+PioneerDDJFLX4.stemPadState = {
+    "[Channel1]": {
+        fx: [false, false, false, false],
+        loaded: false,
+        mute: [false, false, false, false],
+    },
+    "[Channel2]": {
+        fx: [false, false, false, false],
+        loaded: false,
+        mute: [false, false, false, false],
+    },
+};
+
 // Pitch shift (KEY SHIFT) pads mode status for deck 1 and 2, without or with SHIFT pressed
 PioneerDDJFLX4.pitchPadsModesStatus = {
     "[Channel1]": [0x97, 0x98],
@@ -292,17 +305,8 @@ PioneerDDJFLX4.init = function() {
     }
     engine.makeConnection("[EffectRack1_EffectUnit1]", "focused_effect", PioneerDDJFLX4.toggleFxLight);
 
-    // Register callbacks for each deck, when a file is loaded and the number of stems is available
-    engine.makeConnection("[Channel1]", "stem_count", PioneerDDJFLX4.stemCountChanged);
-    engine.makeConnection("[Channel2]", "stem_count", PioneerDDJFLX4.stemCountChanged);
-
-    // Register callbacks for each stems of each decks, to change pad lights when muted/unmuted/FX
-    for (let stem=1; stem<=4; stem++) {
-        for (let deck=1; deck<=2; deck++) {
-            engine.makeConnection(`[Channel${deck}_Stem${stem}]`, "mute", PioneerDDJFLX4.stemMuteChanged);
-            engine.makeConnection(`[QuickEffectRack1_[Channel${deck}_Stem${stem}]]`, "enabled", PioneerDDJFLX4.stemFxChanged);
-        }
-    }
+    engine.makeConnection("[Channel1]", "track_loaded", PioneerDDJFLX4.stemStateReset);
+    engine.makeConnection("[Channel2]", "track_loaded", PioneerDDJFLX4.stemStateReset);
 
     // Register callbacks for each deck, when a file is loaded to reset pitch shift
     engine.makeConnection("[Channel1]", "track_loaded", PioneerDDJFLX4.pitchAdjusted);
@@ -316,6 +320,10 @@ PioneerDDJFLX4.init = function() {
 
     // query the controller for current control positions on startup
     PioneerDDJFLX4.sendKeepAlive(); // the query seems to double as a keep alive message
+    PioneerDDJFLX4.stemPadState["[Channel1]"].loaded = engine.getValue("[Channel1]", "track_loaded") > 0;
+    PioneerDDJFLX4.stemPadState["[Channel2]"].loaded = engine.getValue("[Channel2]", "track_loaded") > 0;
+    PioneerDDJFLX4.refreshStemPads("[Channel1]");
+    PioneerDDJFLX4.refreshStemPads("[Channel2]");
 };
 
 //
@@ -753,11 +761,13 @@ PioneerDDJFLX4.samplerPlayOutputCallbackFunction = function(value, group, _contr
 
 PioneerDDJFLX4.padModeKeyPressed = function(_channel, _control, value, _status, _group) {
     const deck = (_status === 0x90 ? PioneerDDJFLX4.lights.deck1 : PioneerDDJFLX4.lights.deck2);
+    const group = _status === 0x90 ? "[Channel1]" : "[Channel2]";
 
     if (_control === 0x1B) {
         PioneerDDJFLX4.toggleLight(deck.hotcueMode, true);
     } else if (_control === 0x69) {
         PioneerDDJFLX4.toggleLight(deck.keyboardMode, true);
+        PioneerDDJFLX4.refreshStemPads(group);
     } else if (_control === 0x1E) {
         PioneerDDJFLX4.toggleLight(deck.padFX1Mode, true);
     } else if (_control === 0x6B) {
@@ -847,112 +857,115 @@ PioneerDDJFLX4.quickJumpBack = function(_channel, _control, value, _status, grou
 //
 
 PioneerDDJFLX4.stemMutePadPressed = function(_channel, control, value, _status, group) {
-    if (value !== 0x7f) {
+    if (value !== 0x7f || !PioneerDDJFLX4.stemPadState[group].loaded) {
         return;
     }
 
-    const stemCount = Math.min(engine.getValue(group, "stem_count"), 4);
-
-    if (control - PioneerDDJFLX4.stemMutePadsFirstControl + 1 > stemCount) {
+    const stem = control - PioneerDDJFLX4.stemMutePadsFirstControl + 1;
+    if (stem < 1 || stem > 4) {
         return;
     }
 
-    const stemGroup = `[${group.substring(1, group.length-1)}_Stem${control - PioneerDDJFLX4.stemMutePadsFirstControl + 1}]`;
+    const stemGroup = PioneerDDJFLX4.getStemGroup(group, stem);
+    const nextValue = !PioneerDDJFLX4.stemPadState[group].mute[stem - 1];
 
-    if (engine.getValue(stemGroup, "mute")) {
-        engine.setValue(stemGroup, "mute", 0);
-    } else {
-        engine.setValue(stemGroup, "mute", 1);
-    }
+    PioneerDDJFLX4.stemPadState[group].mute[stem - 1] = nextValue;
+    engine.setValue(stemGroup, "mute", nextValue ? 1 : 0);
+    PioneerDDJFLX4.stemMuteChanged(nextValue ? 1 : 0, stemGroup);
 };
 
 PioneerDDJFLX4.stemMutePadShiftPressed = function(_channel, control, value, _status, group) {
-    if (value !== 0x7f) {
+    if (value !== 0x7f || !PioneerDDJFLX4.stemPadState[group].loaded) {
         return;
     }
 
-    const stemCount = Math.min(engine.getValue(group, "stem_count"), 4);
-
-    if (control - PioneerDDJFLX4.stemMutePadsFirstControl + 1 > stemCount) {
+    const selectedStem = control - PioneerDDJFLX4.stemMutePadsFirstControl + 1;
+    if (selectedStem < 1 || selectedStem > 4) {
         return;
     }
 
-    for (let stemIdx=1; stemIdx<=stemCount; stemIdx++) {
-        const stemGroup = `[${group.substring(1, group.length-1)}_Stem${stemIdx}]`;
+    for (let stemIdx = 1; stemIdx <= 4; stemIdx++) {
+        const stemGroup = PioneerDDJFLX4.getStemGroup(group, stemIdx);
+        const muted = stemIdx !== selectedStem;
 
-        if (stemIdx + PioneerDDJFLX4.stemMutePadsFirstControl - 1 === control) {
-            engine.setValue(stemGroup, "mute", 0);
-        } else {
-            engine.setValue(stemGroup, "mute", 1);
-        }
+        PioneerDDJFLX4.stemPadState[group].mute[stemIdx - 1] = muted;
+        engine.setValue(stemGroup, "mute", muted ? 1 : 0);
+        PioneerDDJFLX4.stemMuteChanged(muted ? 1 : 0, stemGroup);
     }
 };
 
 PioneerDDJFLX4.stemFxPadPressed = function(_channel, control, value, _status, group) {
-    if (value !== 0x7f) {
+    if (value !== 0x7f || !PioneerDDJFLX4.stemPadState[group].loaded) {
         return;
     }
 
-    if (control - PioneerDDJFLX4.stemFxPadsFirstControl + 1 > 4) {
+    const stem = control - PioneerDDJFLX4.stemFxPadsFirstControl + 1;
+    if (stem < 1 || stem > 4) {
         return;
     }
 
-    const stemGroup = `[QuickEffectRack1_[${group.substring(1, group.length-1)}_Stem${control - PioneerDDJFLX4.stemFxPadsFirstControl + 1}]]`;
+    const stemGroup = PioneerDDJFLX4.getStemFxGroup(group, stem);
+    const nextValue = !PioneerDDJFLX4.stemPadState[group].fx[stem - 1];
 
-    if (engine.getValue(stemGroup, "enabled")) {
-        engine.setValue(stemGroup, "enabled", 0);
-    } else {
-        engine.setValue(stemGroup, "enabled", 1);
-    }
+    PioneerDDJFLX4.stemPadState[group].fx[stem - 1] = nextValue;
+    engine.setValue(stemGroup, "enabled", nextValue ? 1 : 0);
+    PioneerDDJFLX4.stemFxChanged(nextValue ? 1 : 0, stemGroup);
 };
 
 PioneerDDJFLX4.stemFxPadShiftPressed = function(_channel, control, value, _status, group) {
-    if (value !== 0x7f) {
+    if (value !== 0x7f || !PioneerDDJFLX4.stemPadState[group].loaded) {
         return;
     }
 
-    if (control - PioneerDDJFLX4.stemFxPadsFirstControl + 1 > 4) {
+    const stem = control - PioneerDDJFLX4.stemFxPadsFirstControl + 1;
+    if (stem < 1 || stem > 4) {
         return;
     }
 
-    const stemGroup = `[QuickEffectRack1_[${group.substring(1, group.length-1)}_Stem${control - PioneerDDJFLX4.stemFxPadsFirstControl + 1}]]`;
+    const stemGroup = PioneerDDJFLX4.getStemFxGroup(group, stem);
 
     engine.setValue(stemGroup, "next_chain_preset", 1);
 };
 
-PioneerDDJFLX4.stemCountChanged = function(_value, group, _control) {
+PioneerDDJFLX4.getStemGroup = function(group, stem) {
+    return `[${group.substring(1, group.length - 1)}_Stem${stem}]`;
+};
 
-    for (let stem=1; stem<=4; stem++) {
-        // Stem mute pads
+PioneerDDJFLX4.getStemFxGroup = function(group, stem) {
+    return `[QuickEffectRack1_[${group.substring(1, group.length - 1)}_Stem${stem}]]`;
+};
+
+PioneerDDJFLX4.refreshStemPads = function(group) {
+    for (let stem = 1; stem <= 4; stem++) {
         PioneerDDJFLX4.stemMuteChanged(
-            engine.getValue(`[${group.substring(1, group.length-1)}_Stem${stem}]`, "mute"),
-            `[${group.substring(1, group.length-1)}_Stem${stem}]`,
-            _control,
+            PioneerDDJFLX4.stemPadState[group].mute[stem - 1] ? 1 : 0,
+            PioneerDDJFLX4.getStemGroup(group, stem),
         );
-
-        // Stem FX pads
         PioneerDDJFLX4.stemFxChanged(
-            engine.getValue(`[QuickEffectRack1_[${group.substring(1, group.length-1)}_Stem${stem}]]`, "enabled"),
-            `[QuickEffectRack1_[${group.substring(1, group.length-1)}_Stem${stem}]]`,
-            _control,
+            PioneerDDJFLX4.stemPadState[group].fx[stem - 1] ? 1 : 0,
+            PioneerDDJFLX4.getStemFxGroup(group, stem),
         );
     }
 };
 
+PioneerDDJFLX4.stemStateReset = function(_value, group, _control) {
+    PioneerDDJFLX4.stemPadState[group].loaded = _value > 0;
+    PioneerDDJFLX4.stemPadState[group].mute = [false, false, false, false];
+    PioneerDDJFLX4.stemPadState[group].fx = [false, false, false, false];
+    PioneerDDJFLX4.refreshStemPads(group);
+};
+
 PioneerDDJFLX4.stemMuteChanged = function(value, group, _control) {
     const channelStem = group.match(/\[Channel(\d+)_Stem(\d+)\]/);
+    if (!channelStem) {
+        return;
+    }
     const deck = Number(channelStem[1]);
     const stem = Number(channelStem[2]);
     const channel = `[Channel${deck}]`;
 
-    if (stem > 4) {
-        return;
-    }
-
-    const stemCount = engine.getValue(channel, "stem_count");
-
     let code = 0x00;
-    if (stem <= stemCount && value <= 0.5) {
+    if (PioneerDDJFLX4.stemPadState[channel].loaded && stem <= 4 && value <= 0.5) {
         code = 0x7f;
     }
 
@@ -967,19 +980,19 @@ PioneerDDJFLX4.stemMuteChanged = function(value, group, _control) {
 
 PioneerDDJFLX4.stemFxChanged = function(value, group, _control) {
     const channelStem = group.match(/\[QuickEffectRack1_\[Channel(\d+)_Stem(\d+)\]\]/);
+    if (!channelStem) {
+        return;
+    }
     const deck = Number(channelStem[1]);
     const stem = Number(channelStem[2]);
     const channel = `[Channel${deck}]`;
-
-    if (stem > 4) {
-        return;
-    }
+    const code = PioneerDDJFLX4.stemPadState[channel].loaded && value > 0.5 ? 0x7f : 0x00;
 
     for (let i=0; i<PioneerDDJFLX4.stemsPadsModesStatus[channel].length; i++) {
         midi.sendShortMsg(
             PioneerDDJFLX4.stemsPadsModesStatus[channel][i],
             PioneerDDJFLX4.stemFxPadsFirstControl + stem -1,
-            value <= 0.5 ? 0x00 : 0x7f,
+            code,
         );
     }
 };
