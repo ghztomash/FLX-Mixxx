@@ -389,6 +389,18 @@ PioneerDDJFLX4.browseShiftPress = function(_channel, _control, value, _status, _
     }
 };
 
+PioneerDDJFLX4.loadSelectedTrack = function(_channel, _control, value, _status, group) {
+    if (value === 0) {
+        return;
+    }
+
+    if (engine.getValue("[Skin]", "show_maximized_library") > 0) {
+        engine.setValue("[Skin]", "show_maximized_library", 0);
+    }
+
+    script.triggerControl(group, "LoadSelectedTrack");
+};
+
 //
 // Channel level lights
 //
