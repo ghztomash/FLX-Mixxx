@@ -241,6 +241,13 @@ PioneerDDJFLX4.pitchPadsFirstControl = 0x70;
 
 PioneerDDJFLX4.quickJumpSize = 32;
 
+PioneerDDJFLX4.libraryFocusWidget = {
+    none: 0,
+    searchbar: 1,
+    sidebar: 2,
+    tracksTable: 3,
+};
+
 // Used for tempo slider
 PioneerDDJFLX4.highResMSB = {
     "[Channel1]": {},
@@ -335,6 +342,16 @@ PioneerDDJFLX4.waveformZoom = function(midichan, control, value, status, group) 
         script.triggerControl(group, "waveform_zoom_up", 100);
     } else {
         script.triggerControl(group, "waveform_zoom_down", 100);
+    }
+};
+
+PioneerDDJFLX4.browsePress = function(_channel, _control, value, _status, _group) {
+    if (value === 0) {
+        return;
+    }
+
+    if (engine.getValue("[Library]", "focused_widget") === PioneerDDJFLX4.libraryFocusWidget.sidebar) {
+        script.triggerControl("[Library]", "GoToItem");
     }
 };
 
