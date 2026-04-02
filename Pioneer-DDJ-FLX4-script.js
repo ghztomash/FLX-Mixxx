@@ -681,19 +681,8 @@ PioneerDDJFLX4.jogTurn = function(channel, _control, value, _status, group) {
     // wheel center at 64; <64 rew >64 fwd
     let newVal = value - 64;
 
-    // loop_in / out adjust
-    const loopEnabled = engine.getValue(group, "loop_enabled");
-    if (loopEnabled > 0) {
-        if (PioneerDDJFLX4.loopAdjustIn[channel]) {
-            newVal = newVal * PioneerDDJFLX4.loopAdjustMultiply + engine.getValue(group, "loop_start_position");
-            engine.setValue(group, "loop_start_position", newVal);
-            return;
-        }
-        if (PioneerDDJFLX4.loopAdjustOut[channel]) {
-            newVal = newVal * PioneerDDJFLX4.loopAdjustMultiply + engine.getValue(group, "loop_end_position");
-            engine.setValue(group, "loop_end_position", newVal);
-            return;
-        }
+    if (PioneerDDJFLX4.handleLoopAdjust(channel, group, newVal)) {
+        return;
     }
 
     if (engine.isScratching(deckNum)) {
@@ -703,6 +692,29 @@ PioneerDDJFLX4.jogTurn = function(channel, _control, value, _status, group) {
     }
 };
 
+PioneerDDJFLX4.handleLoopAdjust = function(channel, group, delta) {
+    const loopEnabled = engine.getValue(group, "loop_enabled");
+    if (loopEnabled <= 0) {
+        return false;
+    }
+
+    if (PioneerDDJFLX4.loopAdjustIn[channel]) {
+        const newPosition = delta * PioneerDDJFLX4.loopAdjustMultiply
+            + engine.getValue(group, "loop_start_position");
+        engine.setValue(group, "loop_start_position", newPosition);
+        return true;
+    }
+
+    if (PioneerDDJFLX4.loopAdjustOut[channel]) {
+        const newPosition = delta * PioneerDDJFLX4.loopAdjustMultiply
+            + engine.getValue(group, "loop_end_position");
+        engine.setValue(group, "loop_end_position", newPosition);
+        return true;
+    }
+
+    return false;
+};
+};
 
 PioneerDDJFLX4.jogSearch = function(_channel, _control, value, _status, group) {
     const newVal = (value - 64) * PioneerDDJFLX4.fastSeekScale;
