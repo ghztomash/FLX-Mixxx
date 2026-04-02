@@ -345,6 +345,26 @@ PioneerDDJFLX4.waveformZoom = function(midichan, control, value, status, group) 
     }
 };
 
+PioneerDDJFLX4.getRotaryDelta = function(value) {
+    return value >= 0x40 ? value - 0x80 : value;
+};
+
+PioneerDDJFLX4.browseRotate = function(_channel, _control, value, _status, _group) {
+    const delta = PioneerDDJFLX4.getRotaryDelta(value);
+    if (delta === 0) {
+        return;
+    }
+
+    if (engine.getValue("[Skin]", "show_maximized_library") === 0) {
+        engine.setValue("[Skin]", "show_maximized_library", 1);
+        if (engine.getValue("[Library]", "focused_widget") !== PioneerDDJFLX4.libraryFocusWidget.tracksTable) {
+            engine.setValue("[Library]", "focused_widget", PioneerDDJFLX4.libraryFocusWidget.tracksTable);
+        }
+    } else {
+        engine.setValue("[Library]", "MoveVertical", delta);
+    }
+};
+
 PioneerDDJFLX4.browsePress = function(_channel, _control, value, _status, _group) {
     if (value === 0) {
         return;

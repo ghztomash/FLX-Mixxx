@@ -16,13 +16,13 @@
                 BROWSER Section START
             -->
             <control>
-                <description>BROWSE - rotate - Scroll tracklist/tree view</description>
+                <description>BROWSE - rotate - Maximize library and scroll tracks</description>
                 <group>[Library]</group>
-                <key>MoveVertical</key>
+                <key>PioneerDDJFLX4.browseRotate</key>
                 <status>0xB6</status>
                 <midino>0x40</midino>
                 <options>
-                    <SelectKnob/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
