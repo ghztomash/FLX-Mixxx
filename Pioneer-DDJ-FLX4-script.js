@@ -182,7 +182,7 @@ PioneerDDJFLX4.beta = PioneerDDJFLX4.alpha/32;
 
 // Multiplier for fast seek through track using SHIFT+JOGWHEEL
 PioneerDDJFLX4.fastSeekScale = 150;
-PioneerDDJFLX4.bendScale = 0.8;
+PioneerDDJFLX4.jogwheelSensitivity = 1.0;
 
 PioneerDDJFLX4.tempoRanges = [0.06, 0.10, 0.16, 0.25];
 
@@ -688,8 +688,12 @@ PioneerDDJFLX4.jogTurn = function(channel, _control, value, _status, group) {
     if (engine.isScratching(deckNum)) {
         engine.scratchTick(deckNum, newVal);
     } else { // fallback
-        engine.setValue(group, "jog", newVal * this.bendScale);
+        PioneerDDJFLX4.pitchBendFromJog(group, newVal);
     }
+};
+
+PioneerDDJFLX4.pitchBendFromJog = function(group, movement) {
+    engine.setValue(group, "jog", movement / 5.0 * PioneerDDJFLX4.jogwheelSensitivity);
 };
 
 PioneerDDJFLX4.handleLoopAdjust = function(channel, group, delta) {
@@ -713,7 +717,6 @@ PioneerDDJFLX4.handleLoopAdjust = function(channel, group, delta) {
     }
 
     return false;
-};
 };
 
 PioneerDDJFLX4.jogSearch = function(_channel, _control, value, _status, group) {
