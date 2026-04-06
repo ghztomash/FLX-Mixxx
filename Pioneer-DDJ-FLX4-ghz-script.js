@@ -182,9 +182,9 @@ PioneerDDJFLX4GHz.beta = PioneerDDJFLX4GHz.alpha/32;
 
 // Multiplier for fast seek through track using SHIFT+JOGWHEEL
 PioneerDDJFLX4GHz.fastSeekScale = 150;
-PioneerDDJFLX4GHz.jogwheelSensitivity = 1.0;
+PioneerDDJFLX4GHz.jogwheelSensitivity = 1.25;
 
-PioneerDDJFLX4GHz.tempoRanges = [0.06, 0.10, 0.16, 0.25];
+PioneerDDJFLX4GHz.tempoRanges = [0.06, 0.10, 0.16, 1.00];
 
 PioneerDDJFLX4GHz.shiftButtonDown = [false, false];
 
