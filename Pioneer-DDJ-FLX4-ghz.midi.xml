@@ -322,7 +322,7 @@
                 <status>0xB0</status>
                 <midino>0x20</midino>
                 <options>
-                    <script-binding/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -332,7 +332,7 @@
                 <status>0xB0</status>
                 <midino>0x00</midino>
                 <options>
-                    <script-binding/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -342,7 +342,7 @@
                 <status>0xB1</status>
                 <midino>0x20</midino>
                 <options>
-                    <script-binding/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -352,7 +352,7 @@
                 <status>0xB1</status>
                 <midino>0x00</midino>
                 <options>
-                    <script-binding/>
+                    <Script-Binding/>
                 </options>
             </control>
 
@@ -885,7 +885,7 @@
                 <status>0x90</status>
                 <midino>0x54</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -895,7 +895,7 @@
                 <status>0x91</status>
                 <midino>0x54</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
 
@@ -1257,7 +1257,7 @@
                 <status>0x97</status>
                 <midino>0x00</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1267,7 +1267,7 @@
                 <status>0x98</status>
                 <midino>0x00</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1277,7 +1277,7 @@
                 <status>0x99</status>
                 <midino>0x00</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1287,7 +1287,7 @@
                 <status>0x9A</status>
                 <midino>0x00</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1297,7 +1297,7 @@
                 <status>0x97</status>
                 <midino>0x01</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1307,7 +1307,7 @@
                 <status>0x98</status>
                 <midino>0x01</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1317,7 +1317,7 @@
                 <status>0x99</status>
                 <midino>0x01</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1327,7 +1327,7 @@
                 <status>0x9A</status>
                 <midino>0x01</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1337,7 +1337,7 @@
                 <status>0x97</status>
                 <midino>0x02</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1347,7 +1347,7 @@
                 <status>0x98</status>
                 <midino>0x02</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1357,7 +1357,7 @@
                 <status>0x99</status>
                 <midino>0x02</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1367,7 +1367,7 @@
                 <status>0x9A</status>
                 <midino>0x02</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1377,7 +1377,7 @@
                 <status>0x97</status>
                 <midino>0x03</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1387,7 +1387,7 @@
                 <status>0x98</status>
                 <midino>0x03</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1397,7 +1397,7 @@
                 <status>0x99</status>
                 <midino>0x03</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1407,7 +1407,7 @@
                 <status>0x9A</status>
                 <midino>0x03</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1417,7 +1417,7 @@
                 <status>0x97</status>
                 <midino>0x04</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1427,7 +1427,7 @@
                 <status>0x98</status>
                 <midino>0x04</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1437,7 +1437,7 @@
                 <status>0x99</status>
                 <midino>0x04</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1447,7 +1447,7 @@
                 <status>0x9A</status>
                 <midino>0x04</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1457,7 +1457,7 @@
                 <status>0x97</status>
                 <midino>0x05</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1467,7 +1467,7 @@
                 <status>0x98</status>
                 <midino>0x05</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1477,7 +1477,7 @@
                 <status>0x99</status>
                 <midino>0x05</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1487,7 +1487,7 @@
                 <status>0x9A</status>
                 <midino>0x05</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1497,7 +1497,7 @@
                 <status>0x97</status>
                 <midino>0x06</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1507,7 +1507,7 @@
                 <status>0x98</status>
                 <midino>0x06</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1517,7 +1517,7 @@
                 <status>0x99</status>
                 <midino>0x06</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1527,7 +1527,7 @@
                 <status>0x9A</status>
                 <midino>0x06</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1537,7 +1537,7 @@
                 <status>0x97</status>
                 <midino>0x07</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1547,7 +1547,7 @@
                 <status>0x98</status>
                 <midino>0x07</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1557,7 +1557,7 @@
                 <status>0x99</status>
                 <midino>0x07</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <control>
@@ -1567,7 +1567,7 @@
                 <status>0x9A</status>
                 <midino>0x07</midino>
                 <options>
-                    <normal/>
+                    <Normal/>
                 </options>
             </control>
             <!-- HOT CUE MODE END -->
