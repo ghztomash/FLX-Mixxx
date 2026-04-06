@@ -622,15 +622,26 @@ PioneerDDJFLX4GHz.toggleBeatloop = function(_channel, _control, value, _status, 
 // CUE/LOOP CALL
 //
 
+PioneerDDJFLX4GHz.adjustBeatloopSize = function(group, factor) {
+    const currentSize = engine.getValue(group, "beatloop_size");
+    if (currentSize > 0) {
+        engine.setValue(group, "beatloop_size", currentSize * factor);
+    }
+
+    if (engine.getValue(group, "loop_enabled")) {
+        engine.setValue(group, "loop_scale", factor);
+    }
+};
+
 PioneerDDJFLX4GHz.cueLoopCallLeft = function(_channel, _control, value, _status, group) {
     if (value) {
-        engine.setValue(group, "loop_scale", 0.5);
+        PioneerDDJFLX4GHz.adjustBeatloopSize(group, 0.5);
     }
 };
 
 PioneerDDJFLX4GHz.cueLoopCallRight = function(_channel, _control, value, _status, group) {
     if (value) {
-        engine.setValue(group, "loop_scale", 2.0);
+        PioneerDDJFLX4GHz.adjustBeatloopSize(group, 2.0);
     }
 };
 

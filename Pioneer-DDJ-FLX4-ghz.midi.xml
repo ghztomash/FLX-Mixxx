@@ -546,7 +546,7 @@
             </control>
 
             <control>
-                <description>CUE/LOOP CALL LEFT (DECK1) - press - half active loop</description>
+                <description>CUE/LOOP CALL LEFT (DECK1) - press - halve beatloop size and active loop</description>
                 <group>[Channel1]</group>
                 <key>PioneerDDJFLX4GHz.cueLoopCallLeft</key>
                 <status>0x90</status>
@@ -567,7 +567,7 @@
             </control>
 
             <control>
-                <description>CUE/LOOP CALL LEFT (DECK2) - press - half active loop</description>
+                <description>CUE/LOOP CALL LEFT (DECK2) - press - halve beatloop size and active loop</description>
                 <group>[Channel2]</group>
                 <key>PioneerDDJFLX4GHz.cueLoopCallLeft</key>
                 <status>0x91</status>
@@ -588,7 +588,7 @@
             </control>
 
             <control>
-                <description>CUE/LOOP CALL LEFT (DECK1) - press - double active loop</description>
+                <description>CUE/LOOP CALL RIGHT (DECK1) - press - double beatloop size and active loop</description>
                 <group>[Channel1]</group>
                 <key>PioneerDDJFLX4GHz.cueLoopCallRight</key>
                 <status>0x90</status>
@@ -609,7 +609,7 @@
             </control>
 
             <control>
-                <description>CUE/LOOP CALL LEFT (DECK2) - press - double active loop</description>
+                <description>CUE/LOOP CALL RIGHT (DECK2) - press - double beatloop size and active loop</description>
                 <group>[Channel2]</group>
                 <key>PioneerDDJFLX4GHz.cueLoopCallRight</key>
                 <status>0x91</status>
