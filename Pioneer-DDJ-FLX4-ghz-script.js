@@ -526,7 +526,7 @@ PioneerDDJFLX4GHz.beatFxChannel2 = function(_channel, control, value, _status, g
 //
 
 PioneerDDJFLX4GHz.toggleLoopAdjustIn = function(channel, _control, value, _status, group) {
-    if (value === 0 || engine.getValue(group, "loop_enabled" === 0)) {
+    if (value === 0 || engine.getValue(group, "loop_enabled") === 0) {
         return;
     }
     PioneerDDJFLX4GHz.loopAdjustIn[channel] = !PioneerDDJFLX4GHz.loopAdjustIn[channel];
@@ -534,7 +534,7 @@ PioneerDDJFLX4GHz.toggleLoopAdjustIn = function(channel, _control, value, _statu
 };
 
 PioneerDDJFLX4GHz.toggleLoopAdjustOut = function(channel, _control, value, _status, group) {
-    if (value === 0 || engine.getValue(group, "loop_enabled" === 0)) {
+    if (value === 0 || engine.getValue(group, "loop_enabled") === 0) {
         return;
     }
     PioneerDDJFLX4GHz.loopAdjustOut[channel] = !PioneerDDJFLX4GHz.loopAdjustOut[channel];
@@ -653,16 +653,17 @@ PioneerDDJFLX4GHz.cueLoopCallRight = function(_channel, _control, value, _status
 //
 
 PioneerDDJFLX4GHz.syncPressed = function(channel, control, value, status, group) {
-    if (engine.getValue(group, "sync_enabled") && value > 0) {
-        engine.setValue(group, "sync_enabled", 0);
-    } else {
-        engine.setValue(group, "beatsync", value);
+    if (value === 0) {
+        return;
     }
+
+    const syncEnabled = engine.getValue(group, "sync_enabled") > 0;
+    engine.setValue(group, "sync_enabled", syncEnabled ? 0 : 1);
 };
 
 PioneerDDJFLX4GHz.syncLongPressed = function(channel, control, value, status, group) {
     if (value) {
-        engine.setValue(group, "sync_enabled", 1);
+        engine.setValue(group, "sync_leader", 1);
     }
 };
 

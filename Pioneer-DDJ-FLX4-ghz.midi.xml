@@ -357,7 +357,7 @@
             </control>
 
             <control>
-                <description>BEAT SYNC (DECK1) - press - Beat Sync to Master deck</description>
+                <description>BEAT SYNC (DECK1) - press - Enable or disable sync lock</description>
                 <group>[Channel1]</group>
                 <key>PioneerDDJFLX4GHz.syncPressed</key>
                 <status>0x90</status>
@@ -388,7 +388,7 @@
             </control>
 
             <control>
-                <description>BEAT SYNC (DECK2) - press - Beat Sync to Master deck</description>
+                <description>BEAT SYNC (DECK2) - press - Enable or disable sync lock</description>
                 <group>[Channel2]</group>
                 <key>PioneerDDJFLX4GHz.syncPressed</key>
                 <status>0x91</status>
