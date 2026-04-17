@@ -80,7 +80,7 @@ PioneerDDJFLX2GHz.lights = {
         },
         hotcueMode: {
             status: 0x90,
-            data1: 0x1B,
+            data1: 0x00,
         },
         keyboardMode: {
             status: 0x90,
@@ -96,15 +96,15 @@ PioneerDDJFLX2GHz.lights = {
         },
         beatJumpMode: {
             status: 0x90,
-            data1: 0x20,
+            data1: 0x05,
         },
         beatLoopMode: {
             status: 0x90,
-            data1: 0x6D,
+            data1: 0x01,
         },
         samplerMode: {
             status: 0x90,
-            data1: 0x22,
+            data1: 0x03,
         },
         keyShiftMode: {
             status: 0x90,
@@ -134,7 +134,7 @@ PioneerDDJFLX2GHz.lights = {
         },
         hotcueMode: {
             status: 0x91,
-            data1: 0x1B,
+            data1: 0x00,
         },
         keyboardMode: {
             status: 0x91,
@@ -150,15 +150,15 @@ PioneerDDJFLX2GHz.lights = {
         },
         beatJumpMode: {
             status: 0x91,
-            data1: 0x20,
+            data1: 0x05,
         },
         beatLoopMode: {
             status: 0x91,
-            data1: 0x6D,
+            data1: 0x01,
         },
         samplerMode: {
             status: 0x91,
-            data1: 0x22,
+            data1: 0x03,
         },
         keyShiftMode: {
             status: 0x91,
@@ -195,14 +195,14 @@ PioneerDDJFLX2GHz.loopAdjustMultiply = 50;
 
 // Beatjump pad (beatjump_size values)
 PioneerDDJFLX2GHz.beatjumpSizeForPad = {
-    0x20: -1, // PAD 1
-    0x21: 1,  // PAD 2
-    0x22: -2, // PAD 3
-    0x23: 2,  // PAD 4
-    0x24: -4, // PAD 5
-    0x25: 4,  // PAD 6
-    0x26: -8, // PAD 7
-    0x27: 8   // PAD 8
+    0x10: -1, // PAD 1
+    0x11: 1,  // PAD 2
+    0x12: -2, // PAD 3
+    0x13: 2,  // PAD 4
+    0x14: -4, // PAD 5
+    0x15: 4,  // PAD 6
+    0x16: -8, // PAD 7
+    0x17: 8   // PAD 8
 };
 
 // Stems (KEYBOARD) pads mode status for deck 1 and 2, without or with SHIFT pressed
@@ -667,6 +667,10 @@ PioneerDDJFLX2GHz.syncLongPressed = function(channel, control, value, status, gr
     }
 };
 
+PioneerDDJFLX2GHz.padModeSelectPressed = function(_channel, _control, _value, _status, _group) {
+    // FLX2 uses Shift + Beat Sync only to arm hardware pad-mode selection.
+};
+
 PioneerDDJFLX2GHz.cycleTempoRange = function(_channel, _control, value, _status, group) {
     if (value === 0) { return; } // ignore release
 
@@ -786,7 +790,7 @@ PioneerDDJFLX2GHz.tempoSliderLSB = function(channel, control, value, status, gro
 // Beat Jump mode
 //
 // Note that when we increase/decrease the sizes on the pad buttons, we use the
-// value of the first pad (0x21) as an upper/lower limit beyond which we don't
+// value of the second pad (0x11) as an upper/lower limit beyond which we don't
 // allow further increasing/decreasing of all the values.
 //
 
@@ -799,23 +803,23 @@ PioneerDDJFLX2GHz.beatjumpPadPressed = function(_channel, control, value, _statu
 };
 
 PioneerDDJFLX2GHz.increaseBeatjumpSizes = function(_channel, control, value, _status, group) {
-    if (value === 0 || PioneerDDJFLX2GHz.beatjumpSizeForPad[0x21] * 16 > 16) {
+    if (value === 0 || PioneerDDJFLX2GHz.beatjumpSizeForPad[0x11] * 16 > 16) {
         return;
     }
     Object.keys(PioneerDDJFLX2GHz.beatjumpSizeForPad).forEach(function(pad) {
         PioneerDDJFLX2GHz.beatjumpSizeForPad[pad] = PioneerDDJFLX2GHz.beatjumpSizeForPad[pad] * 16;
     });
-    engine.setValue(group, "beatjump_size", PioneerDDJFLX2GHz.beatjumpSizeForPad[0x21]);
+    engine.setValue(group, "beatjump_size", PioneerDDJFLX2GHz.beatjumpSizeForPad[0x11]);
 };
 
 PioneerDDJFLX2GHz.decreaseBeatjumpSizes = function(_channel, control, value, _status, group) {
-    if (value === 0 || PioneerDDJFLX2GHz.beatjumpSizeForPad[0x21] / 16 < 1/16) {
+    if (value === 0 || PioneerDDJFLX2GHz.beatjumpSizeForPad[0x11] / 16 < 1/16) {
         return;
     }
     Object.keys(PioneerDDJFLX2GHz.beatjumpSizeForPad).forEach(function(pad) {
         PioneerDDJFLX2GHz.beatjumpSizeForPad[pad] = PioneerDDJFLX2GHz.beatjumpSizeForPad[pad] / 16;
     });
-    engine.setValue(group, "beatjump_size", PioneerDDJFLX2GHz.beatjumpSizeForPad[0x21]);
+    engine.setValue(group, "beatjump_size", PioneerDDJFLX2GHz.beatjumpSizeForPad[0x11]);
 };
 
 //
@@ -850,10 +854,14 @@ PioneerDDJFLX2GHz.samplerPlayOutputCallbackFunction = function(value, group, _co
 };
 
 PioneerDDJFLX2GHz.padModeKeyPressed = function(_channel, _control, value, _status, _group) {
+    if (value === 0) {
+        return;
+    }
+
     const deck = (_status === 0x90 ? PioneerDDJFLX2GHz.lights.deck1 : PioneerDDJFLX2GHz.lights.deck2);
     const group = _status === 0x90 ? "[Channel1]" : "[Channel2]";
 
-    if (_control === 0x1B) {
+    if (_control === 0x00) {
         PioneerDDJFLX2GHz.toggleLight(deck.hotcueMode, true);
     } else if (_control === 0x69) {
         PioneerDDJFLX2GHz.toggleLight(deck.keyboardMode, true);
@@ -862,11 +870,11 @@ PioneerDDJFLX2GHz.padModeKeyPressed = function(_channel, _control, value, _statu
         PioneerDDJFLX2GHz.toggleLight(deck.padFX1Mode, true);
     } else if (_control === 0x6B) {
         PioneerDDJFLX2GHz.toggleLight(deck.padFX2Mode, true);
-    } else if (_control === 0x20) {
+    } else if (_control === 0x05) {
         PioneerDDJFLX2GHz.toggleLight(deck.beatJumpMode, true);
-    } else if (_control === 0x6D) {
+    } else if (_control === 0x01) {
         PioneerDDJFLX2GHz.toggleLight(deck.beatLoopMode, true);
-    } else if (_control === 0x22) {
+    } else if (_control === 0x03) {
         PioneerDDJFLX2GHz.toggleLight(deck.samplerMode, true);
     } else if (_control === 0x6F) {
         PioneerDDJFLX2GHz.toggleLight(deck.keyShiftMode, true);
@@ -923,6 +931,16 @@ PioneerDDJFLX2GHz.stopSamplerBlink = function(channel, control) {
     }
 };
 
+
+PioneerDDJFLX2GHz.headphoneCueMasterPressed = function(_channel, _control, value) {
+    if (value === 0) {
+        return;
+    }
+
+    const masterCueEnabled = engine.getValue("[Master]", "headMix") > 0;
+    engine.setValue("[Master]", "headMix", masterCueEnabled ? -1 : 1);
+    midi.sendShortMsg(0x96, 0x63, masterCueEnabled ? 0x00 : 0x7F);
+};
 
 PioneerDDJFLX2GHz.toggleQuantize = function(_channel, _control, value, _status, group) {
     if (value) {
