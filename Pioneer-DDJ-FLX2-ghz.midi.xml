@@ -106,11 +106,11 @@
             <control>
                 <description>PLAY/PAUSE (DECK1) - press - Play/Pause</description>
                 <group>[Channel1]</group>
-                <key>play</key>
+                <key>PioneerDDJFLX2GHz.playPressed</key>
                 <status>0x90</status>
                 <midino>0x0B</midino>
                 <options>
-                    <Normal/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -126,11 +126,11 @@
             <control>
                 <description>PLAY/PAUSE (DECK2) - press - Play/Pause</description>
                 <group>[Channel2]</group>
-                <key>play</key>
+                <key>PioneerDDJFLX2GHz.playPressed</key>
                 <status>0x91</status>
                 <midino>0x0B</midino>
                 <options>
-                    <Normal/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -484,7 +484,7 @@
             </control>
 
             <control>
-                <description>HEADPHONE CUE CH +SHIFT (DECK1) - Toggle quantize on/off</description>
+                <description>HEADPHONE CUE CH +SHIFT (DECK1) - Toggle quantize on/off or Load Deck 1 in Library Mode</description>
                 <group>[Channel1]</group>
                 <key>PioneerDDJFLX2GHz.toggleQuantize</key>
                 <status>0x90</status>
@@ -494,7 +494,7 @@
                 </options>
             </control>
             <control>
-                <description>HEADPHONE CUE CH +SHIFT (DECK2) - Toggle quantize on/off</description>
+                <description>HEADPHONE CUE CH +SHIFT (DECK2) - Toggle quantize on/off or Load Deck 2 in Library Mode</description>
                 <group>[Channel2]</group>
                 <key>PioneerDDJFLX2GHz.toggleQuantize</key>
                 <status>0x91</status>
@@ -627,23 +627,23 @@
             </control>
 
             <control>
-                <description>CUE Channel - press - toggle Headphone Cue</description>
+                <description>CUE Channel - press - toggle Headphone Cue or Back in Library Mode</description>
                 <group>[Channel1]</group>
-                <key>pfl</key>
+                <key>PioneerDDJFLX2GHz.headphoneCuePressed</key>
                 <status>0x90</status>
                 <midino>0x54</midino>
                 <options>
-                    <Normal/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
-                <description>CUE Channel - press - toggle Headphone Cue</description>
+                <description>CUE Channel - press - toggle Headphone Cue or Open in Library Mode</description>
                 <group>[Channel2]</group>
-                <key>pfl</key>
+                <key>PioneerDDJFLX2GHz.headphoneCuePressed</key>
                 <status>0x91</status>
                 <midino>0x54</midino>
                 <options>
-                    <Normal/>
+                    <Script-Binding/>
                 </options>
             </control>
 
@@ -692,6 +692,26 @@
             </control>
 
             <!-- BEAT FX SECTION START -->
+            <control>
+                <description>SMART FADER - press - Exit Library Mode</description>
+                <group>[Library]</group>
+                <key>PioneerDDJFLX2GHz.smartFaderPressed</key>
+                <status>0x96</status>
+                <midino>0x01</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>SMART FADER +SHIFT - press - Toggle Library Mode</description>
+                <group>[Library]</group>
+                <key>PioneerDDJFLX2GHz.smartFaderShiftPressed</key>
+                <status>0x96</status>
+                <midino>0x09</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
 
             <control>
               <description>BEAT FX SELECT - press once - select next effect</description>
@@ -1782,6 +1802,166 @@
                 <midino>0x67</midino>
                 <options>
                     <Normal/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 1 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 1 Beat backwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x60</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 1 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 1 Beat backwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x60</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 2 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 1 Beat forwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x61</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 2 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 1 Beat forwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x61</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 3 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 4 Beats backwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x62</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 3 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 4 Beats backwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x62</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 4 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 4 Beats forwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x63</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 4 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 4 Beats forwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x63</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 5 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 8 Beats backwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x64</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 5 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 8 Beats backwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x64</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 6 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 8 Beats forwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x65</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 6 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 8 Beats forwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x65</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 7 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 16 Beats backwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x66</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 7 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 16 Beats backwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x66</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 8 +SHIFT (DECK1) BEAT LOOP MODE - press - Jump 16 Beats forwards</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x98</status>
+                <midino>0x67</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <description>PAD 8 +SHIFT (DECK2) BEAT LOOP MODE - press - Jump 16 Beats forwards</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed</key>
+                <status>0x9A</status>
+                <midino>0x67</midino>
+                <options>
+                    <Script-Binding/>
                 </options>
             </control>
             <!-- BEAT LOOP MODE END -->

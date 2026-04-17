@@ -27,6 +27,7 @@
 //
 //      * Toggle quantize (Shift + channel cue)
 //      * Stems selection using PADs (using controller's Keyboard mode)
+//      * Library mode (Shift + Smart Fader)
 //
 //  Not implemented (after discussion and trial attempts):
 //      * Secondary pad modes (trial attempts complex and too experimental)
@@ -36,11 +37,18 @@
 //
 //  Not implemented yet (but might be in the future):
 //      * Smart CFX
-//      * Smart fader
 
 var PioneerDDJFLX2GHz = {};
 
 PioneerDDJFLX2GHz.lights = {
+    smartFader: {
+        status: 0x96,
+        data1: 0x01,
+    },
+    shiftSmartFader: {
+        status: 0x96,
+        data1: 0x09,
+    },
     beatFx: {
         status: 0x94,
         data1: 0x47,
@@ -166,11 +174,16 @@ PioneerDDJFLX2GHz.beta = PioneerDDJFLX2GHz.alpha/32;
 
 // Multiplier for fast seek through track using SHIFT+JOGWHEEL
 PioneerDDJFLX2GHz.fastSeekScale = 150;
-PioneerDDJFLX2GHz.jogwheelSensitivity = 1.25;
+PioneerDDJFLX2GHz.jogwheelSensitivity = 1.5;
 
 PioneerDDJFLX2GHz.tempoRanges = [0.06, 0.10, 0.16, 1.00];
 
 PioneerDDJFLX2GHz.shiftButtonDown = [false, false];
+PioneerDDJFLX2GHz.libraryMode = false;
+PioneerDDJFLX2GHz.libraryModeBlinkTimer = undefined;
+PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator = 0;
+PioneerDDJFLX2GHz.libraryModeJogScrollDivisor = 8;
+PioneerDDJFLX2GHz.suppressNextSmartFaderShift = false;
 
 // Beatjump pad (beatjump_size values)
 PioneerDDJFLX2GHz.beatjumpSizeForPad = {
@@ -182,6 +195,17 @@ PioneerDDJFLX2GHz.beatjumpSizeForPad = {
     0x15: 4,  // PAD 6
     0x16: -8, // PAD 7
     0x17: 8   // PAD 8
+};
+
+PioneerDDJFLX2GHz.beatloopShiftBeatjumpSizeForPad = {
+    0x60: -1,  // PAD 1
+    0x61: 1,   // PAD 2
+    0x62: -4,  // PAD 3
+    0x63: 4,   // PAD 4
+    0x64: -8,  // PAD 5
+    0x65: 8,   // PAD 6
+    0x66: -16, // PAD 7
+    0x67: 16   // PAD 8
 };
 
 // Stems (KEYBOARD) pads mode status for deck 1 and 2, without or with SHIFT pressed
@@ -243,6 +267,16 @@ PioneerDDJFLX2GHz.toggleLight = function(midiIn, active) {
     midi.sendShortMsg(midiIn.status, midiIn.data1, active ? 0x7F : 0);
 };
 
+PioneerDDJFLX2GHz.quantizeChanged = function(value, group, _control) {
+    const enabled = value > 0;
+    const status = group === "[Channel1]" ? 0x90 : 0x91;
+    const shiftedInputNote = group === "[Channel1]" ? 0x08 : 0x07;
+    const ledValue = enabled ? 0x7F : 0x00;
+
+    midi.sendShortMsg(status, 0x39, ledValue);
+    midi.sendShortMsg(status, shiftedInputNote, ledValue);
+};
+
 //
 // Init
 //
@@ -267,10 +301,14 @@ PioneerDDJFLX2GHz.init = function() {
 
     engine.makeConnection("[Channel1]", "track_loaded", PioneerDDJFLX2GHz.trackLoadedLED);
     engine.makeConnection("[Channel2]", "track_loaded", PioneerDDJFLX2GHz.trackLoadedLED);
+    engine.makeConnection("[Channel1]", "quantize", PioneerDDJFLX2GHz.quantizeChanged);
+    engine.makeConnection("[Channel2]", "quantize", PioneerDDJFLX2GHz.quantizeChanged);
 
     // play the "track loaded" animation on both decks at startup
     midi.sendShortMsg(0x9F, 0x00, 0x7F);
     midi.sendShortMsg(0x9F, 0x01, 0x7F);
+    PioneerDDJFLX2GHz.quantizeChanged(engine.getValue("[Channel1]", "quantize"), "[Channel1]");
+    PioneerDDJFLX2GHz.quantizeChanged(engine.getValue("[Channel2]", "quantize"), "[Channel2]");
 
     for (i = 1; i <= 3; i++) {
         engine.makeConnection("[EffectRack1_EffectUnit1_Effect" + i +"]", "enabled", PioneerDDJFLX2GHz.toggleFxLight);
@@ -364,6 +402,117 @@ PioneerDDJFLX2GHz.loadSelectedTrack = function(_channel, _control, value, _statu
     }
 
     script.triggerControl(group, "LoadSelectedTrack");
+};
+
+PioneerDDJFLX2GHz.setSmartFaderLight = function(value) {
+    midi.sendShortMsg(PioneerDDJFLX2GHz.lights.smartFader.status, PioneerDDJFLX2GHz.lights.smartFader.data1, value);
+    midi.sendShortMsg(PioneerDDJFLX2GHz.lights.shiftSmartFader.status, PioneerDDJFLX2GHz.lights.shiftSmartFader.data1, value);
+};
+
+PioneerDDJFLX2GHz.startLibraryModeBlink = function() {
+    let value = 0x7F;
+
+    PioneerDDJFLX2GHz.stopLibraryModeBlink();
+    PioneerDDJFLX2GHz.setSmartFaderLight(value);
+    PioneerDDJFLX2GHz.libraryModeBlinkTimer = engine.beginTimer(300, () => {
+        value = 0x7F - value;
+        PioneerDDJFLX2GHz.setSmartFaderLight(value);
+    });
+};
+
+PioneerDDJFLX2GHz.stopLibraryModeBlink = function() {
+    if (PioneerDDJFLX2GHz.libraryModeBlinkTimer !== undefined) {
+        engine.stopTimer(PioneerDDJFLX2GHz.libraryModeBlinkTimer);
+        PioneerDDJFLX2GHz.libraryModeBlinkTimer = undefined;
+    }
+    PioneerDDJFLX2GHz.setSmartFaderLight(0x00);
+};
+
+PioneerDDJFLX2GHz.enterLibraryMode = function() {
+    PioneerDDJFLX2GHz.libraryMode = true;
+    engine.scratchDisable(1);
+    engine.scratchDisable(2);
+    engine.setValue("[Skin]", "show_maximized_library", 1);
+    engine.setValue("[Library]", "focused_widget", PioneerDDJFLX2GHz.libraryFocusWidget.tracksTable);
+    PioneerDDJFLX2GHz.startLibraryModeBlink();
+};
+
+PioneerDDJFLX2GHz.exitLibraryMode = function() {
+    PioneerDDJFLX2GHz.libraryMode = false;
+    engine.setValue("[Skin]", "show_maximized_library", 0);
+    PioneerDDJFLX2GHz.stopLibraryModeBlink();
+};
+
+PioneerDDJFLX2GHz.smartFaderPressed = function(_channel, _control, value) {
+    if (value === 0) {
+        return;
+    }
+
+    if (PioneerDDJFLX2GHz.libraryMode) {
+        PioneerDDJFLX2GHz.suppressNextSmartFaderShift =
+            PioneerDDJFLX2GHz.shiftButtonDown[0] || PioneerDDJFLX2GHz.shiftButtonDown[1];
+        PioneerDDJFLX2GHz.exitLibraryMode();
+    }
+};
+
+PioneerDDJFLX2GHz.smartFaderShiftPressed = function(_channel, _control, value) {
+    if (value === 0) {
+        return;
+    }
+
+    if (PioneerDDJFLX2GHz.suppressNextSmartFaderShift) {
+        PioneerDDJFLX2GHz.suppressNextSmartFaderShift = false;
+        return;
+    }
+
+    if (PioneerDDJFLX2GHz.libraryMode) {
+        PioneerDDJFLX2GHz.exitLibraryMode();
+    } else {
+        PioneerDDJFLX2GHz.enterLibraryMode();
+    }
+};
+
+PioneerDDJFLX2GHz.libraryModeJogScroll = function(value) {
+    const delta = value - 64;
+    if (delta === 0) {
+        return;
+    }
+
+    PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator += delta;
+
+    const scrollSteps = Math.trunc(
+        PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator / PioneerDDJFLX2GHz.libraryModeJogScrollDivisor
+    );
+
+    if (scrollSteps === 0) {
+        return;
+    }
+
+    PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator -=
+        scrollSteps * PioneerDDJFLX2GHz.libraryModeJogScrollDivisor;
+    engine.setValue("[Library]", "MoveVertical", scrollSteps);
+};
+
+PioneerDDJFLX2GHz.playPressed = function(_channel, _control, value, _status, group) {
+    if (value === 0) {
+        return;
+    }
+
+    script.toggleControl(group, "play");
+};
+
+PioneerDDJFLX2GHz.headphoneCuePressed = function(_channel, _control, value, _status, group) {
+    if (value === 0) {
+        return;
+    }
+
+    if (!PioneerDDJFLX2GHz.libraryMode) {
+        script.toggleControl(group, "pfl");
+    } else if (group === "[Channel1]") {
+        PioneerDDJFLX2GHz.browseShiftPress(_channel, _control, value, _status, group);
+    } else {
+        PioneerDDJFLX2GHz.browsePress(_channel, _control, value, _status, group);
+    }
 };
 
 //
@@ -520,6 +669,13 @@ PioneerDDJFLX2GHz.jogTurn = function(channel, _control, value, _status, group) {
     // wheel center at 64; <64 rew >64 fwd
     let newVal = value - 64;
 
+    if (PioneerDDJFLX2GHz.libraryMode) {
+        if (_control === 0x21) {
+            PioneerDDJFLX2GHz.libraryModeJogScroll(value);
+        }
+        return;
+    }
+
     if (engine.isScratching(deckNum)) {
         engine.scratchTick(deckNum, newVal);
     } else { // fallback
@@ -532,12 +688,21 @@ PioneerDDJFLX2GHz.pitchBendFromJog = function(group, movement) {
 };
 
 PioneerDDJFLX2GHz.jogSearch = function(_channel, _control, value, _status, group) {
+    if (PioneerDDJFLX2GHz.libraryMode) {
+        return;
+    }
+
     const newVal = (value - 64) * PioneerDDJFLX2GHz.fastSeekScale;
     engine.setValue(group, "jog", newVal);
 };
 
 PioneerDDJFLX2GHz.jogTouch = function(channel, _control, value) {
     const deckNum = channel + 1;
+
+    if (PioneerDDJFLX2GHz.libraryMode) {
+        engine.scratchDisable(deckNum);
+        return;
+    }
 
     if (value !== 0 && this.vinylMode) {
         engine.scratchEnable(deckNum, 720, 33+1/3, this.alpha, this.beta);
@@ -603,12 +768,25 @@ PioneerDDJFLX2GHz.eqHiLsb = function(channel, _control, value, _status, group) {
 // allow further increasing/decreasing of all the values.
 //
 
+PioneerDDJFLX2GHz.triggerBeatjump = function(group, jumpSize) {
+    engine.setValue(group, "beatjump_size", Math.abs(jumpSize));
+    engine.setValue(group, "beatjump", jumpSize);
+};
+
 PioneerDDJFLX2GHz.beatjumpPadPressed = function(_channel, control, value, _status, group) {
     if (value === 0) {
         return;
     }
-    engine.setValue(group, "beatjump_size", Math.abs(PioneerDDJFLX2GHz.beatjumpSizeForPad[control]));
-    engine.setValue(group, "beatjump", PioneerDDJFLX2GHz.beatjumpSizeForPad[control]);
+    PioneerDDJFLX2GHz.triggerBeatjump(group, PioneerDDJFLX2GHz.beatjumpSizeForPad[control]);
+};
+
+PioneerDDJFLX2GHz.beatloopShiftBeatjumpPadPressed = function(_channel, control, value, _status, group) {
+    const jumpSize = PioneerDDJFLX2GHz.beatloopShiftBeatjumpSizeForPad[control];
+
+    if (value === 0 || jumpSize === undefined) {
+        return;
+    }
+    PioneerDDJFLX2GHz.triggerBeatjump(group, jumpSize);
 };
 
 PioneerDDJFLX2GHz.increaseBeatjumpSizes = function(_channel, control, value, _status, group) {
@@ -742,8 +920,16 @@ PioneerDDJFLX2GHz.stopSamplerBlink = function(channel, control) {
 
 
 PioneerDDJFLX2GHz.toggleQuantize = function(_channel, _control, value, _status, group) {
-    if (value) {
+    if (value === 0) {
+        return;
+    }
+
+    if (!PioneerDDJFLX2GHz.libraryMode) {
         script.toggleControl(group, "quantize");
+        PioneerDDJFLX2GHz.quantizeChanged(engine.getValue(group, "quantize"), group);
+    } else {
+        script.triggerControl(group, "LoadSelectedTrack");
+        PioneerDDJFLX2GHz.exitLibraryMode();
     }
 };
 
@@ -1044,6 +1230,7 @@ PioneerDDJFLX2GHz.shutdown = function() {
     }
 
     // stop any flashing lights
+    PioneerDDJFLX2GHz.stopLibraryModeBlink();
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.beatFx, false);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.shiftBeatFx, false);
 
