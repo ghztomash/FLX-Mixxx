@@ -577,6 +577,24 @@ PioneerDDJFLX2GHz.tempoSliderLSB = function(channel, control, value, status, gro
     );
 };
 
+PioneerDDJFLX2GHz.eqHiMsb = function(_channel, _control, value, _status, group) {
+    PioneerDDJFLX2GHz.highResMSB[group].eqHi = value;
+};
+
+PioneerDDJFLX2GHz.eqHiLsb = function(channel, _control, value, _status, group) {
+    const msb = PioneerDDJFLX2GHz.highResMSB[group].eqHi || 0;
+    const normalized = ((msb << 7) + value) / 0x3FFF;
+
+    // FLX2 sends absolute knob positions and has no pickup feedback, so this
+    // intentionally switches immediately between Hi EQ and shifted Trim.
+    if (PioneerDDJFLX2GHz.shiftButtonDown[channel]) {
+        engine.setParameter(group, "pregain", normalized);
+    } else {
+        const eqGroup = "[EqualizerRack1_" + group + "_Effect1]";
+        engine.setParameter(eqGroup, "parameter3", normalized);
+    }
+};
+
 //
 // Beat Jump mode
 //
@@ -722,16 +740,6 @@ PioneerDDJFLX2GHz.stopSamplerBlink = function(channel, control) {
     }
 };
 
-
-PioneerDDJFLX2GHz.headphoneCueMasterPressed = function(_channel, _control, value) {
-    if (value === 0) {
-        return;
-    }
-
-    const masterCueEnabled = engine.getValue("[Master]", "headMix") > 0;
-    engine.setValue("[Master]", "headMix", masterCueEnabled ? -1 : 1);
-    midi.sendShortMsg(0x96, 0x63, masterCueEnabled ? 0x00 : 0x7F);
-};
 
 PioneerDDJFLX2GHz.toggleQuantize = function(_channel, _control, value, _status, group) {
     if (value) {

@@ -505,55 +505,13 @@
             </control>
 
             <control>
-                <description>TRIM - rotate</description>
+                <description>EQ HI / TRIM +SHIFT (DECK1) - rotate</description>
                 <group>[Channel1]</group>
-                <key>pregain</key>
-                <status>0xB0</status>
-                <midino>0x24</midino>
-                <options>
-                    <fourteen-bit-lsb/>
-                </options>
-            </control>
-            <control>
-                <description>TRIM - rotate</description>
-                <group>[Channel1]</group>
-                <key>pregain</key>
-                <status>0xB0</status>
-                <midino>0x04</midino>
-                <options>
-                    <fourteen-bit-msb/>
-                </options>
-            </control>
-            <control>
-                <description>TRIM - rotate</description>
-                <group>[Channel2]</group>
-                <key>pregain</key>
-                <status>0xB1</status>
-                <midino>0x24</midino>
-                <options>
-                    <fourteen-bit-lsb/>
-                </options>
-            </control>
-            <control>
-                <description>TRIM - rotate</description>
-                <group>[Channel2]</group>
-                <key>pregain</key>
-                <status>0xB1</status>
-                <midino>0x04</midino>
-                <options>
-                    <fourteen-bit-msb/>
-                </options>
-            </control>
-
-
-            <control>
-                <description>EQ HI - rotate</description>
-                <group>[EqualizerRack1_[Channel1]_Effect1]</group>
-                <key>parameter3</key>
+                <key>PioneerDDJFLX2GHz.eqHiLsb</key>
                 <status>0xB0</status>
                 <midino>0x27</midino>
                 <options>
-                    <fourteen-bit-lsb/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -577,13 +535,13 @@
                 </options>
             </control>
             <control>
-                <description>EQ HI - rotate</description>
-                <group>[EqualizerRack1_[Channel1]_Effect1]</group>
-                <key>parameter3</key>
+                <description>EQ HI / TRIM +SHIFT (DECK1) - rotate</description>
+                <group>[Channel1]</group>
+                <key>PioneerDDJFLX2GHz.eqHiMsb</key>
                 <status>0xB0</status>
                 <midino>0x07</midino>
                 <options>
-                    <fourteen-bit-msb/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -608,13 +566,13 @@
             </control>
 
             <control>
-                <description>EQ HI - rotate</description>
-                <group>[EqualizerRack1_[Channel2]_Effect1]</group>
-                <key>parameter3</key>
+                <description>EQ HI / TRIM +SHIFT (DECK2) - rotate</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.eqHiLsb</key>
                 <status>0xB1</status>
                 <midino>0x27</midino>
                 <options>
-                    <fourteen-bit-lsb/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -638,13 +596,13 @@
                 </options>
             </control>
             <control>
-                <description>EQ HI - rotate</description>
-                <group>[EqualizerRack1_[Channel2]_Effect1]</group>
-                <key>parameter3</key>
+                <description>EQ HI / TRIM +SHIFT (DECK2) - rotate</description>
+                <group>[Channel2]</group>
+                <key>PioneerDDJFLX2GHz.eqHiMsb</key>
                 <status>0xB1</status>
                 <midino>0x07</midino>
                 <options>
-                    <fourteen-bit-msb/>
+                    <Script-Binding/>
                 </options>
             </control>
             <control>
@@ -689,79 +647,6 @@
                 </options>
             </control>
 
-            <control>
-                <description>HEADPHONE CUE MASTER - press - toggle master cue in headphones</description>
-                <group>[Master]</group>
-                <key>PioneerDDJFLX2GHz.headphoneCueMasterPressed</key>
-                <status>0x96</status>
-                <midino>0x63</midino>
-                <options>
-                    <Script-Binding/>
-                </options>
-            </control>
-
-            <control>
-                <description>MASTER LEVEL - rotate - Master gain</description>
-                <group>[Master]</group>
-                <key>gain</key>
-                <status>0xB6</status>
-                <midino>0x28</midino>
-                <options>
-                    <fourteen-bit-lsb/>
-                </options>
-            </control>
-            <control>
-                <description>MASTER LEVEL - rotate - Master gain</description>
-                <group>[Master]</group>
-                <key>gain</key>
-                <status>0xB6</status>
-                <midino>0x08</midino>
-                <options>
-                    <fourteen-bit-msb/>
-                </options>
-            </control>
-
-            <control>
-                <description>HEADPHONES LEVEL - rotate - Headphone gain</description>
-                <group>[Master]</group>
-                <key>headGain</key>
-                <status>0xB6</status>
-                <midino>0x2D</midino>
-                <options>
-                    <fourteen-bit-lsb/>
-                </options>
-            </control>
-            <control>
-                <description>HEADPHONES LEVEL - rotate - Headphone gain</description>
-                <group>[Master]</group>
-                <key>headGain</key>
-                <status>0xB6</status>
-                <midino>0x0D</midino>
-                <options>
-                    <fourteen-bit-msb/>
-                </options>
-            </control>
-
-            <control>
-                <description>HEADPHONES MIXING - rotate - Monitor Balance</description>
-                <group>[Master]</group>
-                <key>headMix</key>
-                <status>0xB6</status>
-                <midino>0x2C</midino>
-                <options>
-                    <fourteen-bit-lsb/>
-                </options>
-            </control>
-            <control>
-                <description>HEADPHONES MIXING - rotate - Monitor Balance</description>
-                <group>[Master]</group>
-                <key>headMix</key>
-                <status>0xB6</status>
-                <midino>0x0C</midino>
-                <options>
-                    <fourteen-bit-msb/>
-                </options>
-            </control>
             <!-- MIXER Section END -->
 
             <!-- EFFECT Section START -->
