@@ -8,8 +8,7 @@
 //  Implemented (as per manufacturer's manual):
 //      * Mixer Section (Faders, EQ, Filter, Gain, Cue)
 //      * Browsing and loading + Waveform zoom (shift)
-//      * Jogwheels, Scratching, Bending, Loop adjust
-//      * Cycle Temporange
+//      * Jogwheels, Scratching, Bending
 //      * Beat Sync
 //      * Hot Cue Mode
 //      * Beat Loop Mode
@@ -26,17 +25,10 @@
 //                ON/OFF toggles focused effect slot
 //                SHIFT + ON/OFF disables all three effect slots.
 //
-//      * 32 beat jump forward & back (Shift + </> CUE/LOOP CALL arrows)
 //      * Toggle quantize (Shift + channel cue)
 //      * Stems selection using PADs (using controller's Keyboard mode)
 //
 //  Not implemented (after discussion and trial attempts):
-//      * Loop Section:
-//        * -4BEAT auto loop (hacky---prefer a clean way to set a 4 beat loop
-//                            from a previous position on long press)
-//
-//        * CUE/LOOP CALL - memory & delete (complex and not useful. Hot cues are sufficient)
-//
 //      * Secondary pad modes (trial attempts complex and too experimental)
 //        * Keyboard mode
 //        * Pad FX1
@@ -58,10 +50,6 @@ PioneerDDJFLX2GHz.lights = {
         data1: 0x43,
     },
     deck1: {
-        vuMeter: {
-            status: 0xB0,
-            data1: 0x02,
-        },
         playPause: {
             status: 0x90,
             data1: 0x0B,
@@ -112,10 +100,6 @@ PioneerDDJFLX2GHz.lights = {
         },
     },
     deck2: {
-        vuMeter: {
-            status: 0xB0,
-            data1: 0x02,
-        },
         playPause: {
             status: 0x91,
             data1: 0x0B,
@@ -188,11 +172,6 @@ PioneerDDJFLX2GHz.tempoRanges = [0.06, 0.10, 0.16, 1.00];
 
 PioneerDDJFLX2GHz.shiftButtonDown = [false, false];
 
-// Jog wheel loop adjust
-PioneerDDJFLX2GHz.loopAdjustIn = [false, false];
-PioneerDDJFLX2GHz.loopAdjustOut = [false, false];
-PioneerDDJFLX2GHz.loopAdjustMultiply = 50;
-
 // Beatjump pad (beatjump_size values)
 PioneerDDJFLX2GHz.beatjumpSizeForPad = {
     0x10: -1, // PAD 1
@@ -239,8 +218,6 @@ PioneerDDJFLX2GHz.pitchPadsModesStatus = {
 // Pitch shift (KEY SHIFT) pad 1 control (pad control = [this value] + [pad  number] - 1)
 PioneerDDJFLX2GHz.pitchPadsFirstControl = 0x70;
 
-PioneerDDJFLX2GHz.quickJumpSize = 32;
-
 PioneerDDJFLX2GHz.libraryFocusWidget = {
     none: 0,
     searchbar: 1,
@@ -273,12 +250,6 @@ PioneerDDJFLX2GHz.toggleLight = function(midiIn, active) {
 PioneerDDJFLX2GHz.init = function() {
     engine.setValue("[EffectRack1_EffectUnit1]", "show_focus", 1);
 
-    engine.makeConnection("[Channel1]", "vu_meter", PioneerDDJFLX2GHz.vuMeterUpdate);
-    engine.makeConnection("[Channel2]", "vu_meter", PioneerDDJFLX2GHz.vuMeterUpdate);
-
-    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.deck1.vuMeter, false);
-    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.deck2.vuMeter, false);
-
     engine.softTakeover("[Channel1]", "rate", true);
     engine.softTakeover("[Channel2]", "rate", true);
     engine.softTakeover("[EffectRack1_EffectUnit1_Effect1]", "meta", true);
@@ -300,12 +271,6 @@ PioneerDDJFLX2GHz.init = function() {
     // play the "track loaded" animation on both decks at startup
     midi.sendShortMsg(0x9F, 0x00, 0x7F);
     midi.sendShortMsg(0x9F, 0x01, 0x7F);
-
-    PioneerDDJFLX2GHz.setLoopButtonLights(0x90, 0x7F);
-    PioneerDDJFLX2GHz.setLoopButtonLights(0x91, 0x7F);
-
-    engine.makeConnection("[Channel1]", "loop_enabled", PioneerDDJFLX2GHz.loopToggle);
-    engine.makeConnection("[Channel2]", "loop_enabled", PioneerDDJFLX2GHz.loopToggle);
 
     for (i = 1; i <= 3; i++) {
         engine.makeConnection("[EffectRack1_EffectUnit1_Effect" + i +"]", "enabled", PioneerDDJFLX2GHz.toggleFxLight);
@@ -399,24 +364,6 @@ PioneerDDJFLX2GHz.loadSelectedTrack = function(_channel, _control, value, _statu
     }
 
     script.triggerControl(group, "LoadSelectedTrack");
-};
-
-//
-// Channel level lights
-//
-
-PioneerDDJFLX2GHz.vuMeterUpdate = function(value, group) {
-    const newVal = value * 127;
-
-    switch (group) {
-    case "[Channel1]":
-        midi.sendShortMsg(0xB0, 0x02, newVal);
-        break;
-
-    case "[Channel2]":
-        midi.sendShortMsg(0xB1, 0x02, newVal);
-        break;
-    }
 };
 
 //
@@ -522,130 +469,6 @@ PioneerDDJFLX2GHz.beatFxChannel2 = function(_channel, control, value, _status, g
 };
 
 //
-// Loop IN/OUT ADJUST
-//
-
-PioneerDDJFLX2GHz.toggleLoopAdjustIn = function(channel, _control, value, _status, group) {
-    if (value === 0 || engine.getValue(group, "loop_enabled") === 0) {
-        return;
-    }
-    PioneerDDJFLX2GHz.loopAdjustIn[channel] = !PioneerDDJFLX2GHz.loopAdjustIn[channel];
-    PioneerDDJFLX2GHz.loopAdjustOut[channel] = false;
-};
-
-PioneerDDJFLX2GHz.toggleLoopAdjustOut = function(channel, _control, value, _status, group) {
-    if (value === 0 || engine.getValue(group, "loop_enabled") === 0) {
-        return;
-    }
-    PioneerDDJFLX2GHz.loopAdjustOut[channel] = !PioneerDDJFLX2GHz.loopAdjustOut[channel];
-    PioneerDDJFLX2GHz.loopAdjustIn[channel] = false;
-};
-
-// Two signals are sent here so that the light stays lit/unlit in its shift state too
-PioneerDDJFLX2GHz.setReloopLight = function(status, value) {
-    midi.sendShortMsg(status, 0x4D, value);
-    midi.sendShortMsg(status, 0x50, value);
-};
-
-
-PioneerDDJFLX2GHz.setLoopButtonLights = function(status, value) {
-    [0x10, 0x11, 0x4E, 0x4C].forEach(function(control) {
-        midi.sendShortMsg(status, control, value);
-    });
-};
-
-PioneerDDJFLX2GHz.startLoopLightsBlink = function(channel, control, status, group) {
-    let blink = 0x7F;
-
-    PioneerDDJFLX2GHz.stopLoopLightsBlink(group, control, status);
-
-    PioneerDDJFLX2GHz.timers[group][control] = engine.beginTimer(500, () => {
-        blink = 0x7F - blink;
-
-        // When adjusting the loop out position, turn the loop in light off
-        if (PioneerDDJFLX2GHz.loopAdjustOut[channel]) {
-            midi.sendShortMsg(status, 0x10, 0x00);
-            midi.sendShortMsg(status, 0x4C, 0x00);
-        } else {
-            midi.sendShortMsg(status, 0x10, blink);
-            midi.sendShortMsg(status, 0x4C, blink);
-        }
-
-        // When adjusting the loop in position, turn the loop out light off
-        if (PioneerDDJFLX2GHz.loopAdjustIn[channel]) {
-            midi.sendShortMsg(status, 0x11, 0x00);
-            midi.sendShortMsg(status, 0x4E, 0x00);
-        } else {
-            midi.sendShortMsg(status, 0x11, blink);
-            midi.sendShortMsg(status, 0x4E, blink);
-        }
-    });
-
-};
-
-PioneerDDJFLX2GHz.stopLoopLightsBlink = function(group, control, status) {
-    PioneerDDJFLX2GHz.timers[group] = PioneerDDJFLX2GHz.timers[group] || {};
-
-    if (PioneerDDJFLX2GHz.timers[group][control] !== undefined) {
-        engine.stopTimer(PioneerDDJFLX2GHz.timers[group][control]);
-    }
-    PioneerDDJFLX2GHz.timers[group][control] = undefined;
-    PioneerDDJFLX2GHz.setLoopButtonLights(status, 0x7F);
-};
-
-PioneerDDJFLX2GHz.loopToggle = function(value, group, control) {
-    const status = group === "[Channel1]" ? 0x90 : 0x91,
-        channel = group === "[Channel1]" ? 0 : 1;
-
-    PioneerDDJFLX2GHz.setReloopLight(status, value ? 0x7F : 0x00);
-
-    if (value) {
-        PioneerDDJFLX2GHz.startLoopLightsBlink(channel, control, status, group);
-    } else {
-        PioneerDDJFLX2GHz.stopLoopLightsBlink(group, control, status);
-        PioneerDDJFLX2GHz.loopAdjustIn[channel] = false;
-        PioneerDDJFLX2GHz.loopAdjustOut[channel] = false;
-    }
-};
-
-PioneerDDJFLX2GHz.toggleBeatloop = function(_channel, _control, value, _status, group) {
-    if (value) {
-        const control = engine.getValue(group, "loop_enabled")
-            ? "reloop_toggle"
-            : "beatloop_activate";
-        engine.setValue(group, control, 1);
-        engine.setValue(group, control, 0);
-    }
-};
-
-//
-// CUE/LOOP CALL
-//
-
-PioneerDDJFLX2GHz.adjustBeatloopSize = function(group, factor) {
-    const currentSize = engine.getValue(group, "beatloop_size");
-    if (currentSize > 0) {
-        engine.setValue(group, "beatloop_size", currentSize * factor);
-    }
-
-    if (engine.getValue(group, "loop_enabled")) {
-        engine.setValue(group, "loop_scale", factor);
-    }
-};
-
-PioneerDDJFLX2GHz.cueLoopCallLeft = function(_channel, _control, value, _status, group) {
-    if (value) {
-        PioneerDDJFLX2GHz.adjustBeatloopSize(group, 0.5);
-    }
-};
-
-PioneerDDJFLX2GHz.cueLoopCallRight = function(_channel, _control, value, _status, group) {
-    if (value) {
-        PioneerDDJFLX2GHz.adjustBeatloopSize(group, 2.0);
-    }
-};
-
-//
 // BEAT SYNC
 //
 // Note that the controller sends different signals for a short press and a long
@@ -697,10 +520,6 @@ PioneerDDJFLX2GHz.jogTurn = function(channel, _control, value, _status, group) {
     // wheel center at 64; <64 rew >64 fwd
     let newVal = value - 64;
 
-    if (PioneerDDJFLX2GHz.handleLoopAdjust(channel, group, newVal)) {
-        return;
-    }
-
     if (engine.isScratching(deckNum)) {
         engine.scratchTick(deckNum, newVal);
     } else { // fallback
@@ -712,29 +531,6 @@ PioneerDDJFLX2GHz.pitchBendFromJog = function(group, movement) {
     engine.setValue(group, "jog", movement / 5.0 * PioneerDDJFLX2GHz.jogwheelSensitivity);
 };
 
-PioneerDDJFLX2GHz.handleLoopAdjust = function(channel, group, delta) {
-    const loopEnabled = engine.getValue(group, "loop_enabled");
-    if (loopEnabled <= 0) {
-        return false;
-    }
-
-    if (PioneerDDJFLX2GHz.loopAdjustIn[channel]) {
-        const newPosition = delta * PioneerDDJFLX2GHz.loopAdjustMultiply
-            + engine.getValue(group, "loop_start_position");
-        engine.setValue(group, "loop_start_position", newPosition);
-        return true;
-    }
-
-    if (PioneerDDJFLX2GHz.loopAdjustOut[channel]) {
-        const newPosition = delta * PioneerDDJFLX2GHz.loopAdjustMultiply
-            + engine.getValue(group, "loop_end_position");
-        engine.setValue(group, "loop_end_position", newPosition);
-        return true;
-    }
-
-    return false;
-};
-
 PioneerDDJFLX2GHz.jogSearch = function(_channel, _control, value, _status, group) {
     const newVal = (value - 64) * PioneerDDJFLX2GHz.fastSeekScale;
     engine.setValue(group, "jog", newVal);
@@ -742,11 +538,6 @@ PioneerDDJFLX2GHz.jogSearch = function(_channel, _control, value, _status, group
 
 PioneerDDJFLX2GHz.jogTouch = function(channel, _control, value) {
     const deckNum = channel + 1;
-
-    // skip while adjusting the loop points
-    if (PioneerDDJFLX2GHz.loopAdjustIn[channel] || PioneerDDJFLX2GHz.loopAdjustOut[channel]) {
-        return;
-    }
 
     if (value !== 0 && this.vinylMode) {
         engine.scratchEnable(deckNum, 720, 33+1/3, this.alpha, this.beta);
@@ -945,18 +736,6 @@ PioneerDDJFLX2GHz.headphoneCueMasterPressed = function(_channel, _control, value
 PioneerDDJFLX2GHz.toggleQuantize = function(_channel, _control, value, _status, group) {
     if (value) {
         script.toggleControl(group, "quantize");
-    }
-};
-
-PioneerDDJFLX2GHz.quickJumpForward = function(_channel, _control, value, _status, group) {
-    if (value) {
-        engine.setValue(group, "beatjump", PioneerDDJFLX2GHz.quickJumpSize);
-    }
-};
-
-PioneerDDJFLX2GHz.quickJumpBack = function(_channel, _control, value, _status, group) {
-    if (value) {
-        engine.setValue(group, "beatjump", -PioneerDDJFLX2GHz.quickJumpSize);
     }
 };
 
@@ -1240,10 +1019,6 @@ PioneerDDJFLX2GHz.pitchPadShiftPressed = function(_channel, control, value, _sta
 //
 
 PioneerDDJFLX2GHz.shutdown = function() {
-    // reset vumeter
-    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.deck1.vuMeter, false);
-    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.deck2.vuMeter, false);
-
     // housekeeping
     // turn off all Sampler LEDs
     for (var i = 0; i <= 7; ++i) {
@@ -1259,14 +1034,6 @@ PioneerDDJFLX2GHz.shutdown = function() {
         midi.sendShortMsg(0x99, 0x00 + i, 0x00);    // Deck 2 pads
         midi.sendShortMsg(0x9A, 0x00 + i, 0x00);    // Deck 2 pads with SHIFT
     }
-
-    // turn off loop in and out lights
-    PioneerDDJFLX2GHz.setLoopButtonLights(0x90, 0x00);
-    PioneerDDJFLX2GHz.setLoopButtonLights(0x91, 0x00);
-
-    // turn off reloop lights
-    PioneerDDJFLX2GHz.setReloopLight(0x90, 0x00);
-    PioneerDDJFLX2GHz.setReloopLight(0x91, 0x00);
 
     // stop any flashing lights
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.beatFx, false);
