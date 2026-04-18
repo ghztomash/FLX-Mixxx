@@ -4,6 +4,8 @@ Custom Mixxx controller mappings for the Pioneer/AlphaTheta DDJ-FLX2 and
 DDJ-FLX4. These mappings are based on the DDJ-400 mapping work and adjusted to
 provide a practical rekordbox-style workflow in Mixxx.
 
+![Preview](./resources/preview.jpg)
+
 ## Features
 
 - Standard deck, mixer, jog wheel, performance pad, Beat FX, and CFX controls
