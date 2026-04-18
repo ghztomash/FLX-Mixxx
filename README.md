@@ -6,6 +6,8 @@ provide a practical rekordbox-style workflow in Mixxx.
 
 ![Preview](./resources/preview.jpg)
 
+Mainly used in my [standalone mixxx setup](https://github.com/ghztomash/StandaloneMixxx).
+
 ## Features
 
 - Standard deck, mixer, jog wheel, performance pad, Beat FX, and CFX controls
