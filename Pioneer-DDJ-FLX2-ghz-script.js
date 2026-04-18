@@ -28,6 +28,7 @@
 //      * Toggle quantize (Shift + channel cue)
 //      * Stems selection using PADs (using controller's Keyboard mode)
 //      * Library mode (Shift + Smart Fader)
+//      * Smart CFX approximation (Shift + Master PFL toggles Quick FX preset)
 //
 //  Not implemented (after discussion and trial attempts):
 //      * Secondary pad modes (trial attempts complex and too experimental)
@@ -35,12 +36,13 @@
 //        * Pad FX1
 //        * Pad FX2
 //
-//  Not implemented yet (but might be in the future):
-//      * Smart CFX
-
 var PioneerDDJFLX2GHz = {};
 
 PioneerDDJFLX2GHz.lights = {
+    smartCfx: {
+        status: 0x96,
+        data1: 0x00,
+    },
     smartFader: {
         status: 0x96,
         data1: 0x01,
@@ -184,6 +186,11 @@ PioneerDDJFLX2GHz.libraryModeBlinkTimer = undefined;
 PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator = 0;
 PioneerDDJFLX2GHz.libraryModeJogScrollDivisor = 8;
 PioneerDDJFLX2GHz.suppressNextSmartFaderShift = false;
+PioneerDDJFLX2GHz.smartCfxEnabled = false;
+PioneerDDJFLX2GHz.quickEffectPreset = {
+    moogFilter: 14,
+    filterEcho: 2,
+};
 
 // Beatjump pad (beatjump_size values)
 PioneerDDJFLX2GHz.beatjumpSizeForPad = {
@@ -309,6 +316,7 @@ PioneerDDJFLX2GHz.init = function() {
     midi.sendShortMsg(0x9F, 0x01, 0x7F);
     PioneerDDJFLX2GHz.quantizeChanged(engine.getValue("[Channel1]", "quantize"), "[Channel1]");
     PioneerDDJFLX2GHz.quantizeChanged(engine.getValue("[Channel2]", "quantize"), "[Channel2]");
+    PioneerDDJFLX2GHz.applySmartCfxQuickEffect();
 
     for (i = 1; i <= 3; i++) {
         engine.makeConnection("[EffectRack1_EffectUnit1_Effect" + i +"]", "enabled", PioneerDDJFLX2GHz.toggleFxLight);
@@ -524,6 +532,30 @@ PioneerDDJFLX2GHz.toggleFxLight = function(_value, _group, _control) {
 
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.beatFx, enabled);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.shiftBeatFx, enabled);
+};
+
+PioneerDDJFLX2GHz.applySmartCfxQuickEffect = function() {
+    const preset = PioneerDDJFLX2GHz.smartCfxEnabled
+        ? PioneerDDJFLX2GHz.quickEffectPreset.filterEcho
+        : PioneerDDJFLX2GHz.quickEffectPreset.moogFilter;
+
+    ["[Channel1]", "[Channel2]"].forEach(function(group) {
+        const quickEffectGroup = "[QuickEffectRack1_" + group + "]";
+        engine.setValue(quickEffectGroup, "loaded_chain_preset", preset);
+        engine.setParameter(quickEffectGroup, "super1", 0.5);
+        engine.softTakeoverIgnoreNextValue(quickEffectGroup, "super1");
+    });
+
+    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.smartCfx, PioneerDDJFLX2GHz.smartCfxEnabled);
+};
+
+PioneerDDJFLX2GHz.smartCfxPressed = function(_channel, _control, value) {
+    if (value === 0) {
+        return;
+    }
+
+    PioneerDDJFLX2GHz.smartCfxEnabled = !PioneerDDJFLX2GHz.smartCfxEnabled;
+    PioneerDDJFLX2GHz.applySmartCfxQuickEffect();
 };
 
 PioneerDDJFLX2GHz.focusedFxGroup = function() {
@@ -1231,6 +1263,7 @@ PioneerDDJFLX2GHz.shutdown = function() {
 
     // stop any flashing lights
     PioneerDDJFLX2GHz.stopLibraryModeBlink();
+    PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.smartCfx, false);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.beatFx, false);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.shiftBeatFx, false);
 

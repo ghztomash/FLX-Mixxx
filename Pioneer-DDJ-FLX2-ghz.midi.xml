@@ -712,6 +712,16 @@
                     <Script-Binding/>
                 </options>
             </control>
+            <control>
+                <description>SMART CFX - press - Toggle Quick FX Filter Echo / Moog Filter</description>
+                <group>[Master]</group>
+                <key>PioneerDDJFLX2GHz.smartCfxPressed</key>
+                <status>0x96</status>
+                <midino>0x00</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
 
             <control>
               <description>BEAT FX SELECT - press once - select next effect</description>
