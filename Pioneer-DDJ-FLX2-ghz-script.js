@@ -188,7 +188,7 @@ PioneerDDJFLX2GHz.libraryModeJogScrollDivisor = 8;
 PioneerDDJFLX2GHz.suppressNextSmartFaderShift = false;
 PioneerDDJFLX2GHz.smartCfxEnabled = false;
 PioneerDDJFLX2GHz.quickEffectPreset = {
-    moogFilter: 14,
+    filter: 11,
     filterEcho: 2,
 };
 
@@ -537,7 +537,7 @@ PioneerDDJFLX2GHz.toggleFxLight = function(_value, _group, _control) {
 PioneerDDJFLX2GHz.applySmartCfxQuickEffect = function() {
     const preset = PioneerDDJFLX2GHz.smartCfxEnabled
         ? PioneerDDJFLX2GHz.quickEffectPreset.filterEcho
-        : PioneerDDJFLX2GHz.quickEffectPreset.moogFilter;
+        : PioneerDDJFLX2GHz.quickEffectPreset.filter;
 
     ["[Channel1]", "[Channel2]"].forEach(function(group) {
         const quickEffectGroup = "[QuickEffectRack1_" + group + "]";
