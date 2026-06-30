@@ -770,10 +770,18 @@ PioneerDDJFLX4GHz.shiftPressed = function(channel, _control, value, _status, _gr
 
 PioneerDDJFLX4GHz.tempoSliderMSB = function(channel, control, value, status, group) {
     PioneerDDJFLX4GHz.highResMSB[group].tempoSlider = value;
+    PioneerDDJFLX4GHz.setTempoSlider(group);
 };
 
 PioneerDDJFLX4GHz.tempoSliderLSB = function(channel, control, value, status, group) {
-    const fullValue = (PioneerDDJFLX4GHz.highResMSB[group].tempoSlider << 7) + value;
+    PioneerDDJFLX4GHz.highResMSB[group].tempoSliderLSB = value;
+    PioneerDDJFLX4GHz.setTempoSlider(group);
+};
+
+PioneerDDJFLX4GHz.setTempoSlider = function(group) {
+    const msb = PioneerDDJFLX4GHz.highResMSB[group].tempoSlider || 0;
+    const lsb = PioneerDDJFLX4GHz.highResMSB[group].tempoSliderLSB || 0;
+    const fullValue = (msb << 7) + lsb;
 
     engine.setValue(
         group,
