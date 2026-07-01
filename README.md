@@ -12,6 +12,7 @@ Mainly used in my [standalone mixxx setup](https://github.com/ghztomash/Standalo
 
 - Standard deck, mixer, jog wheel, performance pad, Beat FX, and CFX controls
   where the hardware supports them.
+- Controller Settings include jog wheel sensitivity controls for both mappings.
 - Improved FLX4 library browsing workflow: the browse encoder automatically
   opens the maximized library, scrolls tracks, switches between the track table
   and sidebar, and loads the selected track with the deck load buttons.

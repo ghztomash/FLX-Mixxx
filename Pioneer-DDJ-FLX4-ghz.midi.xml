@@ -7,6 +7,23 @@
         <manual>pioneer_ddj_FLX4</manual>
         <forums>https://mixxx.discourse.group/t/pioneer-ddj-flx4</forums>
     </info>
+    <settings>
+        <group label="Jog Wheels">
+            <option
+                variable="jogwheelSensitivity"
+                type="real"
+                min="0.1"
+                max="5.0"
+                step="0.05"
+                precision="2"
+                default="1.25"
+                label="Jog wheel sensitivity">
+                <description>
+                    Adjusts jog wheel pitch-bend sensitivity.
+                </description>
+            </option>
+        </group>
+    </settings>
     <controller id="DDJ-FLX4-ghz">
         <scriptfiles>
             <file functionprefix="PioneerDDJFLX4GHz" filename="Pioneer-DDJ-FLX4-ghz-script.js"/>
