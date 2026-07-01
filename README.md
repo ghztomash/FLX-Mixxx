@@ -64,6 +64,8 @@ encoder or load buttons.
 - `Headphone Cue CH 2`: Open/Enter.
 - `Shift + Headphone Cue CH 1/2`: load selected track to deck 1/2 and exit
   Library Mode.
+- Controller Settings include an FLX2 vinyl mode toggle. When disabled,
+  jog platter rotation pitch-bends/nudges instead of scratching.
 
 ## Contributors
 

@@ -7,6 +7,19 @@
         <manual>pioneer_ddj_FLX2</manual>
         <forums>https://mixxx.discourse.group/t/pioneer-ddj-flx2</forums>
     </info>
+    <settings>
+        <group label="Jog Wheels">
+            <option
+                variable="vinylMode"
+                type="boolean"
+                default="true"
+                label="Vinyl mode">
+                <description>
+                    When enabled, touching and rotating the jog platter scratches. When disabled, jog rotation pitch-bends/nudges instead.
+                </description>
+            </option>
+        </group>
+    </settings>
     <controller id="DDJ-FLX2-ghz">
         <scriptfiles>
             <file functionprefix="PioneerDDJFLX2GHz" filename="Pioneer-DDJ-FLX2-ghz-script.js"/>

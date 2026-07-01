@@ -170,7 +170,7 @@ PioneerDDJFLX2GHz.sendKeepAlive = function() {
 };
 
 // Jog wheel constants
-PioneerDDJFLX2GHz.vinylMode = true;
+PioneerDDJFLX2GHz.vinylMode = engine.getSetting("vinylMode");
 PioneerDDJFLX2GHz.alpha = 1.0/8;
 PioneerDDJFLX2GHz.beta = PioneerDDJFLX2GHz.alpha/32;
 
