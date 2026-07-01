@@ -171,6 +171,9 @@ PioneerDDJFLX2GHz.sendKeepAlive = function() {
 
 // Jog wheel constants
 PioneerDDJFLX2GHz.vinylMode = engine.getSetting("vinylMode");
+PioneerDDJFLX2GHz.eqHiSoftTakeover = engine.getSetting("eqHiSoftTakeover");
+PioneerDDJFLX2GHz.eqHiSoftTakeover = PioneerDDJFLX2GHz.eqHiSoftTakeover !== false &&
+    PioneerDDJFLX2GHz.eqHiSoftTakeover !== "false";
 PioneerDDJFLX2GHz.alpha = 1.0/8;
 PioneerDDJFLX2GHz.beta = PioneerDDJFLX2GHz.alpha/32;
 
@@ -181,6 +184,7 @@ PioneerDDJFLX2GHz.jogwheelSensitivity = engine.getSetting("jogwheelSensitivity")
 PioneerDDJFLX2GHz.tempoRanges = [0.06, 0.10, 0.16, 1.00];
 
 PioneerDDJFLX2GHz.shiftButtonDown = [false, false];
+PioneerDDJFLX2GHz.eqHiTakeoverTarget = [undefined, undefined];
 PioneerDDJFLX2GHz.libraryMode = false;
 PioneerDDJFLX2GHz.libraryModeBlinkTimer = undefined;
 PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator = 0;
@@ -297,6 +301,7 @@ PioneerDDJFLX2GHz.init = function() {
     engine.softTakeover("[EffectRack1_EffectUnit1_Effect2]", "meta", true);
     engine.softTakeover("[EffectRack1_EffectUnit1_Effect3]", "meta", true);
     engine.softTakeover("[EffectRack1_EffectUnit1]", "mix", true);
+    PioneerDDJFLX2GHz.setEqHiSoftTakeover(PioneerDDJFLX2GHz.eqHiSoftTakeover);
 
     const samplerCount = 16;
     if (engine.getValue("[App]", "num_samplers") < samplerCount) {
@@ -786,18 +791,49 @@ PioneerDDJFLX2GHz.eqHiMsb = function(_channel, _control, value, _status, group) 
     PioneerDDJFLX2GHz.highResMSB[group].eqHi = value;
 };
 
+PioneerDDJFLX2GHz.eqHiTarget = function(group, shifted) {
+    if (shifted) {
+        return {
+            group: group,
+            key: "pregain",
+        };
+    }
+
+    return {
+        group: "[EqualizerRack1_" + group + "_Effect1]",
+        key: "parameter3",
+    };
+};
+
+PioneerDDJFLX2GHz.setEqHiSoftTakeover = function(enabled) {
+    engine.softTakeover("[Channel1]", "pregain", enabled);
+    engine.softTakeover("[Channel2]", "pregain", enabled);
+    engine.softTakeover("[EqualizerRack1_[Channel1]_Effect1]", "parameter3", enabled);
+    engine.softTakeover("[EqualizerRack1_[Channel2]_Effect1]", "parameter3", enabled);
+};
+
+PioneerDDJFLX2GHz.updateEqHiTakeoverTarget = function(channel, target) {
+    if (!PioneerDDJFLX2GHz.eqHiSoftTakeover) {
+        return;
+    }
+
+    const previousTarget = PioneerDDJFLX2GHz.eqHiTakeoverTarget[channel];
+    if (previousTarget !== undefined &&
+            (previousTarget.group !== target.group || previousTarget.key !== target.key)) {
+        // Reset the target being left so it requires pickup when returning.
+        engine.softTakeoverIgnoreNextValue(previousTarget.group, previousTarget.key);
+    }
+    PioneerDDJFLX2GHz.eqHiTakeoverTarget[channel] = target;
+};
+
 PioneerDDJFLX2GHz.eqHiLsb = function(channel, _control, value, _status, group) {
     const msb = PioneerDDJFLX2GHz.highResMSB[group].eqHi || 0;
     const normalized = ((msb << 7) + value) / 0x3FFF;
+    const shifted = PioneerDDJFLX2GHz.shiftButtonDown[0] || PioneerDDJFLX2GHz.shiftButtonDown[1];
+    const target = PioneerDDJFLX2GHz.eqHiTarget(group, shifted);
 
-    // FLX2 sends absolute knob positions and has no pickup feedback, so this
-    // intentionally switches immediately between Hi EQ and shifted Trim.
-    if (PioneerDDJFLX2GHz.shiftButtonDown[channel]) {
-        engine.setParameter(group, "pregain", normalized);
-    } else {
-        const eqGroup = "[EqualizerRack1_" + group + "_Effect1]";
-        engine.setParameter(eqGroup, "parameter3", normalized);
-    }
+    PioneerDDJFLX2GHz.updateEqHiTakeoverTarget(channel, target);
+    engine.setParameter(target.group, target.key, normalized);
 };
 
 //

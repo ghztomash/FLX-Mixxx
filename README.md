@@ -67,6 +67,8 @@ encoder or load buttons.
   Library Mode.
 - Controller Settings include an FLX2 vinyl mode toggle. When disabled,
   jog platter rotation pitch-bends/nudges instead of scratching.
+- Controller Settings include an FLX2 soft takeover toggle for the shared
+  `EQ Hi` / `Shift + EQ Hi` High EQ and Trim control.
 
 ## Contributors
 

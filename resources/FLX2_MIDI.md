@@ -35,9 +35,10 @@ temporary Library Mode instead:
 
 - The FLX2 has no dedicated Trim knobs. `Shift + EQ Hi` controls channel Trim
   (`pregain`). Without Shift, the same knob controls High EQ.
-- `Shift + EQ Hi` intentionally does not use soft takeover. The FLX2 sends
-  absolute knob positions and has no hardware value feedback, so the target
-  Mixxx control follows the physical knob immediately.
+- `EQ Hi` and `Shift + EQ Hi` use soft takeover. Because the same physical knob
+  controls High EQ and Trim, each deck resets pickup for the target being left
+  when the knob is moved after switching shifted/unshifted mode. This can be
+  disabled with the `Soft takeover for EQ Hi / Trim` controller setting.
 - CFX knobs control Mixxx QuickEffect `super1` for each deck.
 - `Shift + Headphone Cue Master` is mapped as a Smart CFX approximation:
   pressing it toggles both deck QuickEffect presets between `Moog Filter` and

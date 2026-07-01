@@ -32,6 +32,18 @@
                 </description>
             </option>
         </group>
+        <group label="Mixer">
+            <option
+                variable="eqHiSoftTakeover"
+                type="boolean"
+                default="true"
+                label="Soft takeover for EQ Hi / Trim">
+                <description>
+                    When enabled, the shared EQ Hi / Shift+EQ Hi knob waits for pickup before changing High EQ or Trim after switching
+                    modes.
+                </description>
+            </option>
+        </group>
     </settings>
     <controller id="DDJ-FLX2-ghz">
         <scriptfiles>
