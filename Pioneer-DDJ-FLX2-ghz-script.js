@@ -189,6 +189,9 @@ PioneerDDJFLX2GHz.libraryMode = false;
 PioneerDDJFLX2GHz.libraryModeBlinkTimer = undefined;
 PioneerDDJFLX2GHz.libraryModeJogScrollAccumulator = 0;
 PioneerDDJFLX2GHz.libraryModeJogScrollDivisor = 8;
+PioneerDDJFLX2GHz.sideJogScratchActive = [false, false];
+PioneerDDJFLX2GHz.sideJogScratchDisableTimer = [undefined, undefined];
+PioneerDDJFLX2GHz.sideJogScratchDisableDelayMs = 60;
 PioneerDDJFLX2GHz.suppressNextSmartFaderShift = false;
 PioneerDDJFLX2GHz.smartCfxEnabled = false;
 PioneerDDJFLX2GHz.quickEffectPreset = {
@@ -442,6 +445,8 @@ PioneerDDJFLX2GHz.stopLibraryModeBlink = function() {
 };
 
 PioneerDDJFLX2GHz.enterLibraryMode = function() {
+    PioneerDDJFLX2GHz.cancelSideJogScratch(1, true);
+    PioneerDDJFLX2GHz.cancelSideJogScratch(2, true);
     PioneerDDJFLX2GHz.libraryMode = true;
     engine.scratchDisable(1);
     engine.scratchDisable(2);
@@ -705,18 +710,83 @@ PioneerDDJFLX2GHz.jogTurn = function(channel, _control, value, _status, group) {
     const deckNum = channel + 1;
     // wheel center at 64; <64 rew >64 fwd
     let newVal = value - 64;
+    const isSideJog = _control === 0x21;
 
     if (PioneerDDJFLX2GHz.libraryMode) {
-        if (_control === 0x21) {
+        if (isSideJog) {
             PioneerDDJFLX2GHz.libraryModeJogScroll(value);
         }
         return;
     }
 
+    if (isSideJog) {
+        if (PioneerDDJFLX2GHz.shouldScratchWithSideJog(group)) {
+            PioneerDDJFLX2GHz.scratchWithSideJog(deckNum, newVal);
+        } else {
+            PioneerDDJFLX2GHz.cancelSideJogScratch(deckNum, true);
+            PioneerDDJFLX2GHz.pitchBendFromJog(group, newVal);
+        }
+        return;
+    }
+
+    PioneerDDJFLX2GHz.cancelSideJogScratch(deckNum, true);
+
     if (engine.isScratching(deckNum)) {
         engine.scratchTick(deckNum, newVal);
     } else { // fallback
         PioneerDDJFLX2GHz.pitchBendFromJog(group, newVal);
+    }
+};
+
+PioneerDDJFLX2GHz.shouldScratchWithSideJog = function(group) {
+    return PioneerDDJFLX2GHz.vinylMode && engine.getValue(group, "play") !== 1;
+};
+
+PioneerDDJFLX2GHz.scratchWithSideJog = function(deckNum, movement) {
+    const deckIndex = deckNum - 1;
+
+    if (!PioneerDDJFLX2GHz.sideJogScratchActive[deckIndex]) {
+        engine.scratchEnable(deckNum, 720, 33+1/3, PioneerDDJFLX2GHz.alpha, PioneerDDJFLX2GHz.beta);
+        PioneerDDJFLX2GHz.sideJogScratchActive[deckIndex] = true;
+    }
+
+    engine.scratchTick(deckNum, movement);
+    PioneerDDJFLX2GHz.scheduleSideJogScratchDisable(deckNum);
+};
+
+PioneerDDJFLX2GHz.scheduleSideJogScratchDisable = function(deckNum) {
+    const deckIndex = deckNum - 1;
+    const timer = PioneerDDJFLX2GHz.sideJogScratchDisableTimer[deckIndex];
+
+    if (timer !== undefined) {
+        engine.stopTimer(timer);
+    }
+
+    PioneerDDJFLX2GHz.sideJogScratchDisableTimer[deckIndex] = engine.beginTimer(
+        PioneerDDJFLX2GHz.sideJogScratchDisableDelayMs,
+        () => {
+            PioneerDDJFLX2GHz.sideJogScratchDisableTimer[deckIndex] = undefined;
+            PioneerDDJFLX2GHz.sideJogScratchActive[deckIndex] = false;
+            engine.scratchDisable(deckNum);
+        },
+        true
+    );
+};
+
+PioneerDDJFLX2GHz.cancelSideJogScratch = function(deckNum, disableScratch) {
+    const deckIndex = deckNum - 1;
+    const timer = PioneerDDJFLX2GHz.sideJogScratchDisableTimer[deckIndex];
+
+    if (timer !== undefined) {
+        engine.stopTimer(timer);
+        PioneerDDJFLX2GHz.sideJogScratchDisableTimer[deckIndex] = undefined;
+    }
+
+    if (PioneerDDJFLX2GHz.sideJogScratchActive[deckIndex]) {
+        PioneerDDJFLX2GHz.sideJogScratchActive[deckIndex] = false;
+        if (disableScratch) {
+            engine.scratchDisable(deckNum);
+        }
     }
 };
 
@@ -737,9 +807,12 @@ PioneerDDJFLX2GHz.jogTouch = function(channel, _control, value) {
     const deckNum = channel + 1;
 
     if (PioneerDDJFLX2GHz.libraryMode) {
+        PioneerDDJFLX2GHz.cancelSideJogScratch(deckNum, true);
         engine.scratchDisable(deckNum);
         return;
     }
+
+    PioneerDDJFLX2GHz.cancelSideJogScratch(deckNum, false);
 
     if (value !== 0 && this.vinylMode) {
         engine.scratchEnable(deckNum, 720, 33+1/3, this.alpha, this.beta);
@@ -1307,6 +1380,8 @@ PioneerDDJFLX2GHz.shutdown = function() {
 
     // stop any flashing lights
     PioneerDDJFLX2GHz.stopLibraryModeBlink();
+    PioneerDDJFLX2GHz.cancelSideJogScratch(1, true);
+    PioneerDDJFLX2GHz.cancelSideJogScratch(2, true);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.smartCfx, false);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.beatFx, false);
     PioneerDDJFLX2GHz.toggleLight(PioneerDDJFLX2GHz.lights.shiftBeatFx, false);

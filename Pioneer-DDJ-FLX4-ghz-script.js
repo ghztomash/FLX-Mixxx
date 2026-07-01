@@ -187,6 +187,9 @@ PioneerDDJFLX4GHz.jogwheelSensitivity = engine.getSetting("jogwheelSensitivity")
 PioneerDDJFLX4GHz.tempoRanges = [0.06, 0.10, 0.16, 1.00];
 
 PioneerDDJFLX4GHz.shiftButtonDown = [false, false];
+PioneerDDJFLX4GHz.sideJogScratchActive = [false, false];
+PioneerDDJFLX4GHz.sideJogScratchDisableTimer = [undefined, undefined];
+PioneerDDJFLX4GHz.sideJogScratchDisableDelayMs = 60;
 
 // Jog wheel loop adjust
 PioneerDDJFLX4GHz.loopAdjustIn = [false, false];
@@ -692,15 +695,80 @@ PioneerDDJFLX4GHz.jogTurn = function(channel, _control, value, _status, group) {
     const deckNum = channel + 1;
     // wheel center at 64; <64 rew >64 fwd
     let newVal = value - 64;
+    const isSideJog = _control === 0x21;
 
     if (PioneerDDJFLX4GHz.handleLoopAdjust(channel, group, newVal)) {
         return;
     }
 
+    if (isSideJog) {
+        if (PioneerDDJFLX4GHz.shouldScratchWithSideJog(group)) {
+            PioneerDDJFLX4GHz.scratchWithSideJog(deckNum, newVal);
+        } else {
+            PioneerDDJFLX4GHz.cancelSideJogScratch(deckNum, true);
+            PioneerDDJFLX4GHz.pitchBendFromJog(group, newVal);
+        }
+        return;
+    }
+
+    PioneerDDJFLX4GHz.cancelSideJogScratch(deckNum, true);
+
     if (engine.isScratching(deckNum)) {
         engine.scratchTick(deckNum, newVal);
     } else { // fallback
         PioneerDDJFLX4GHz.pitchBendFromJog(group, newVal);
+    }
+};
+
+PioneerDDJFLX4GHz.shouldScratchWithSideJog = function(group) {
+    return PioneerDDJFLX4GHz.vinylMode && engine.getValue(group, "play") !== 1;
+};
+
+PioneerDDJFLX4GHz.scratchWithSideJog = function(deckNum, movement) {
+    const deckIndex = deckNum - 1;
+
+    if (!PioneerDDJFLX4GHz.sideJogScratchActive[deckIndex]) {
+        engine.scratchEnable(deckNum, 720, 33+1/3, PioneerDDJFLX4GHz.alpha, PioneerDDJFLX4GHz.beta);
+        PioneerDDJFLX4GHz.sideJogScratchActive[deckIndex] = true;
+    }
+
+    engine.scratchTick(deckNum, movement);
+    PioneerDDJFLX4GHz.scheduleSideJogScratchDisable(deckNum);
+};
+
+PioneerDDJFLX4GHz.scheduleSideJogScratchDisable = function(deckNum) {
+    const deckIndex = deckNum - 1;
+    const timer = PioneerDDJFLX4GHz.sideJogScratchDisableTimer[deckIndex];
+
+    if (timer !== undefined) {
+        engine.stopTimer(timer);
+    }
+
+    PioneerDDJFLX4GHz.sideJogScratchDisableTimer[deckIndex] = engine.beginTimer(
+        PioneerDDJFLX4GHz.sideJogScratchDisableDelayMs,
+        () => {
+            PioneerDDJFLX4GHz.sideJogScratchDisableTimer[deckIndex] = undefined;
+            PioneerDDJFLX4GHz.sideJogScratchActive[deckIndex] = false;
+            engine.scratchDisable(deckNum);
+        },
+        true
+    );
+};
+
+PioneerDDJFLX4GHz.cancelSideJogScratch = function(deckNum, disableScratch) {
+    const deckIndex = deckNum - 1;
+    const timer = PioneerDDJFLX4GHz.sideJogScratchDisableTimer[deckIndex];
+
+    if (timer !== undefined) {
+        engine.stopTimer(timer);
+        PioneerDDJFLX4GHz.sideJogScratchDisableTimer[deckIndex] = undefined;
+    }
+
+    if (PioneerDDJFLX4GHz.sideJogScratchActive[deckIndex]) {
+        PioneerDDJFLX4GHz.sideJogScratchActive[deckIndex] = false;
+        if (disableScratch) {
+            engine.scratchDisable(deckNum);
+        }
     }
 };
 
@@ -743,6 +811,8 @@ PioneerDDJFLX4GHz.jogTouch = function(channel, _control, value) {
     if (PioneerDDJFLX4GHz.loopAdjustIn[channel] || PioneerDDJFLX4GHz.loopAdjustOut[channel]) {
         return;
     }
+
+    PioneerDDJFLX4GHz.cancelSideJogScratch(deckNum, false);
 
     if (value !== 0 && this.vinylMode) {
         engine.scratchEnable(deckNum, 720, 33+1/3, this.alpha, this.beta);
@@ -1259,6 +1329,8 @@ PioneerDDJFLX4GHz.shutdown = function() {
     PioneerDDJFLX4GHz.setReloopLight(0x91, 0x00);
 
     // stop any flashing lights
+    PioneerDDJFLX4GHz.cancelSideJogScratch(1, true);
+    PioneerDDJFLX4GHz.cancelSideJogScratch(2, true);
     PioneerDDJFLX4GHz.toggleLight(PioneerDDJFLX4GHz.lights.beatFx, false);
     PioneerDDJFLX4GHz.toggleLight(PioneerDDJFLX4GHz.lights.shiftBeatFx, false);
 
