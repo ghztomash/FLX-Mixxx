@@ -326,7 +326,7 @@ PioneerDDJFLX4GHz.init = function() {
     engine.makeConnection("[Channel1]", "pitch_adjust", PioneerDDJFLX4GHz.pitchAdjusted);
     engine.makeConnection("[Channel2]", "pitch_adjust", PioneerDDJFLX4GHz.pitchAdjusted);
 
-    PioneerDDJFLX4GHz.keepAliveTimer = engine.beginTimer(200, PioneerDDJFLX4GHz.sendKeepAlive);
+    PioneerDDJFLX4GHz.keepAliveTimer = engine.beginTimer(500, PioneerDDJFLX4GHz.sendKeepAlive);
 
     // query the controller for current control positions on startup
     PioneerDDJFLX4GHz.sendKeepAlive(); // the query seems to double as a keep alive message
