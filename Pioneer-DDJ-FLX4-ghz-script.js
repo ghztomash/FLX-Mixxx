@@ -626,13 +626,15 @@ PioneerDDJFLX4GHz.toggleBeatloop = function(_channel, _control, value, _status, 
 //
 
 PioneerDDJFLX4GHz.adjustBeatloopSize = function(group, factor) {
-    const currentSize = engine.getValue(group, "beatloop_size");
-    if (currentSize > 0) {
-        engine.setValue(group, "beatloop_size", currentSize * factor);
-    }
-
     if (engine.getValue(group, "loop_enabled")) {
+        // Resize the active loop once. Do not also change beatloop_size.
         engine.setValue(group, "loop_scale", factor);
+    } else {
+        // With no active loop, adjust the size used for the next beatloop.
+        const currentSize = engine.getValue(group, "beatloop_size");
+        if (currentSize > 0) {
+            engine.setValue(group, "beatloop_size", currentSize * factor);
+        }
     }
 };
 
